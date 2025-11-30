@@ -71,10 +71,12 @@
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
+   color: black; 
 }
 
 .btn-login:hover {
   background: #f0f0f0;
+  color: rgb(78, 46, 46); 
 }
 
 /* Register */
