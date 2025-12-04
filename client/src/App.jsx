@@ -59,8 +59,8 @@ function App() {
             <Route path="bookings-view" element={<ViewBookings />} />
 
             {/* Payments */}
-            <Route path="/payments-due" element={<DuePayments />} />
-            <Route path="/payments-view" element={<ViewPayments />} />
+            <Route path="payments-due" element={<DuePayments />} />
+            <Route path="payments-view" element={<ViewPayments />} />
 
             {/* Support */}
             <Route path="support-resolve" element={<ResolveIssue/>} />

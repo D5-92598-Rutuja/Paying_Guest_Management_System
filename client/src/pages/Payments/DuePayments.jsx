@@ -181,7 +181,7 @@ function ActionButtons({ record, onViewDetails, onSendReminder }) {
       >
         View
       </button>
-      {record.status !== "Paid" && (
+      {/* {record.status !== "Paid" && (
         <button
           className="btn btn-warning m-3 rounded-2"
           onClick={() => onSendReminder(record)}
@@ -189,7 +189,7 @@ function ActionButtons({ record, onViewDetails, onSendReminder }) {
         >
           Reminder
         </button>
-      )}
+      )} */}
     </div>
   );
 }
