@@ -1,97 +1,51 @@
-/*import React from 'react'
-
-const AddRoom = () => {
-  return (
-    <div>
-      <h1>Add Room</h1>
-    </div>
-  )
-}
-
-export default AddRoom
-*/
-
 import React, { useState } from "react";
 import "./AddRoom.css";
 
 function AddRoom() {
-  // React Hooks
   const [roomType, setRoomType] = useState("");
   const [floorNumber, setFloorNumber] = useState("");
   const [roomNumber, setRoomNumber] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const roomData = {
-      roomType,
-      floorNumber,
-      roomNumber,
-    };
-
-    console.log("Room Added:", roomData);
-
-    // Later: You can add API call here
-    // axios.post("/api/rooms", roomData)
-
-    // Clear inputs
-    setRoomType("");
-    setFloorNumber("");
-    setRoomNumber("");
-  };
-
   return (
-    <div className="add-room-container">
-      <h2 className="title">Add New Room</h2>
-      <p className="subtitle">Add a new room to the system</p>
+    <div className="addroom-container">
 
-      <div className="room-card">
-        <h4 className="section-title">Room Details</h4>
+      <h1 className="addroom-title">Add New Room</h1>
+      <p className="addroom-subtitle">Add a new room to the system</p>
 
-        <form onSubmit={handleSubmit}>
-          {/* Room Type */}
-          <div className="form-group mb-3">
-            <label className="form-label">Room Type *</label>
-            <select
-              className="form-control"
-              value={roomType}
-              onChange={(e) => setRoomType(e.target.value)}
-            >
-              <option value="">Select room type</option>
-              <option value="Single">Single</option>
-              <option value="Double">Double</option>
-              <option value="Triple">Triple</option>
-            </select>
-          </div>
+      <div className="addroom-card">
 
-          {/* Floor Number */}
-          <div className="form-group mb-3">
-            <label className="form-label">Floor Number *</label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="Enter floor number"
-              value={floorNumber}
-              onChange={(e) => setFloorNumber(e.target.value)}
-            />
-          </div>
+        <h2 className="section-title">Room Details</h2>
 
-          {/* Room Number */}
-          <div className="form-group mb-4">
-            <label className="form-label">Room Number *</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Enter room number"
-              value={roomNumber}
-              onChange={(e) => setRoomNumber(e.target.value)}
-            />
-          </div>
+        <label>Room Type *</label>
+        <select
+          className="input-field"
+          value={roomType}
+          onChange={(e) => setRoomType(e.target.value)}
+        >
+          <option value="">Select room type</option>
+          <option value="Single">Single</option>
+          <option value="Double">Double</option>
+        </select>
 
-          <button className="btn btn-dark w-100 add-room-btn" type="submit">
-            Add Room
-          </button>
-        </form>
+        <label>Floor Number *</label>
+        <input
+          type="number"
+          className="input-field"
+          placeholder="Enter floor number"
+          value={floorNumber}
+          onChange={(e) => setFloorNumber(e.target.value)}
+        />
+
+        <label>Room Number *</label>
+        <input
+          type="text"
+          className="input-field"
+          placeholder="Enter room number"
+          value={roomNumber}
+          onChange={(e) => setRoomNumber(e.target.value)}
+        />
+
+        <button className="addroom-btn">Add Room</button>
       </div>
     </div>
   );
