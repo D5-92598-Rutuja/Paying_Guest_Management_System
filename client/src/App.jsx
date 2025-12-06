@@ -20,7 +20,6 @@ import VerifyKYC from './pages/UserManagement/VerifyKYC'
 function App() {
   return (
     <div>
-
           <Routes>
             {/* Default route */}
             <Route
@@ -40,6 +39,7 @@ function App() {
 
             {/* Dashboard */}
             <Route path="/dashboard" element={<Dashboard/>} />
+           
 
              {/* Room Management */}
             <Route path="/rooms/add" element={<AddRoom />} />
