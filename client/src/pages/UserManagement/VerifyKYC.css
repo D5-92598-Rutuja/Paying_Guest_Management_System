@@ -3,29 +3,16 @@
 =========================== */
 .layout {
   display: flex;
-  width: 100%;
+  /* width: 100%; */
 }
 
-/* ===========================
-   SIDEBAR (Left Panel)
-=========================== */
-.sidebar {
-  width: 240px;                     /* FIXED WIDTH */
-  background: #fff;
-  border-right: 1px solid #e5e5e5;
-  min-height: 100vh;
-  position: fixed;                  /* STICK LEFT */
-  left: 0;
-  top: 0;
-  padding: 20px;
-  font-family: "Segoe UI", sans-serif;
-}
+
 
 /* ===========================
    VERIFY KYC MAIN PAGE
 =========================== */
 .verify-container {
-  padding-left: 200px;              /* SAME AS SIDEBAR WIDTH + small gap */
+  padding-left: 40px;              /* SAME AS SIDEBAR WIDTH + small gap */
   padding-top: 40px;
   padding-right: 40px;
   width: 100%;

@@ -1,0 +1,42 @@
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.home-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* 20% navbar */
+.home-navbar {
+  flex: 0 0 20%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* 80% content area with sidebar + outlet */
+.home-content {
+  flex: 1 0 80%;
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Sidebar (e.g., 250px fixed width) */
+.home-sidebar {
+  flex: 0 0 250px;  /* Fixed width sidebar */
+  overflow-y: auto;
+  border-right: 1px solid #e0e0e0;
+}
+
+/* ViewPayments takes remaining width */
+.home-outlet {
+  flex: 1 0 0;      /* Takes remaining space */
+  overflow: auto;
+  width: 100%;
+}
