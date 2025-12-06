@@ -1,0 +1,215 @@
+/* ===========================
+   MAIN LAYOUT 
+=========================== */
+.layout {
+  display: flex;
+  width: 100%;
+}
+
+/* ===========================
+   SIDEBAR (Left Panel)
+=========================== */
+.sidebar {
+  width: 240px;                     /* FIXED WIDTH */
+  background: #fff;
+  border-right: 1px solid #e5e5e5;
+  min-height: 100vh;
+  position: fixed;                  /* STICK LEFT */
+  left: 0;
+  top: 0;
+  padding: 20px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* ===========================
+   VERIFY KYC MAIN PAGE
+=========================== */
+.verify-container {
+  padding-left: 200px;              /* SAME AS SIDEBAR WIDTH + small gap */
+  padding-top: 40px;
+  padding-right: 40px;
+  width: 100%;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* ===========================
+   PAGE TITLE
+=========================== */
+.verify-title {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+  text-align: left;
+}
+
+.verify-subtitle {
+  margin-top: 6px;
+  font-size: 16px;
+  color: #666;
+  text-align: left;
+}
+
+/* ===========================
+   STAT CARD
+=========================== */
+.stats-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 18px;
+  padding: 25px;
+  width: 320px;
+  margin-top: 30px;
+}
+
+.stats-number {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.stats-label {
+  font-size: 15px;
+  color: #666;
+}
+
+/* ===========================
+   USER CARD
+=========================== */
+.user-card {
+  margin-top: 35px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 18px;
+  padding: 25px;
+}
+
+.user-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-name {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.user-id {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #555;
+}
+
+.status-badge {
+  background: #e9e9ff;
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+/* ===========================
+   DETAILS SECTION
+=========================== */
+.details-row {
+  margin-top: 20px;
+  background: #f3f3f7;
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  gap: 60px;
+}
+
+.detail-block label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.detail-block p {
+  margin: 5px 0 0;
+}
+
+/* ===========================
+   DOCUMENT SECTION
+=========================== */
+.docs-heading {
+  margin-top: 40px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.docs-container {
+  display: flex;
+  gap: 28px;
+  margin-top: 20px;
+}
+
+.doc-box {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.doc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.view-btn {
+  background: #f4f4f4;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.doc-preview {
+  background: #f2f3f7;
+  border-radius: 12px;
+  height: 160px;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-icon {
+  font-size: 45px;
+  opacity: 0.5;
+}
+
+.doc-number {
+  margin-top: 10px;
+  color: #777;
+  font-size: 14px;
+}
+
+/* ===========================
+   ACTION BUTTONS
+=========================== */
+.actions-row {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+}
+
+.btn-approve {
+  padding: 10px 22px;
+  background: #000;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-reject {
+  padding: 10px 22px;
+  background: #e53935;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
