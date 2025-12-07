@@ -67,7 +67,7 @@ function Navbar() {
         </li>
         <li>
           <NavLink className="nav-link sidebar-link" 
-          to="payments-due">
+          to="/home/payments-due">
             <i className="bi bi-exclamation-circle me-2"></i> Due Payments
           </NavLink>
         </li>
