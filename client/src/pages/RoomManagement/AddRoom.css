@@ -1,0 +1,94 @@
+/* MAIN PAGE CONTAINER */
+.addroom-container {
+  margin-left: 150px;     /* FIXED */
+  padding: 40px 40px;
+  width: 100%;        /* FIXED */
+}
+
+
+/* Page Title */
+.addroom-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  text-align: left !important;
+}
+
+/* Subtitle */
+.addroom-subtitle {
+  color: #6c6c6c;
+  font-size: 16px;
+  margin-bottom: 25px;
+  text-align: left !important;
+}
+
+/* SMALLER CARD SIZE */
+.addroom-card {
+  width: 65%;                 /* smaller width */
+  max-width: 750px;           /* stops it from becoming too wide */
+  background: #fff;
+  padding: 35px;
+  border-radius: 15px;
+  border: 1px solid #e5e5e5;
+  margin: 0;                  
+  text-align: left;
+}
+
+
+/* Section Heading */
+.section-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: left !important;    /* remove center */
+}
+
+/* Labels */
+label {
+  font-weight: 600;
+  margin-top: 12px;
+  display: block;
+  color: #333;
+}
+.page-container {
+  margin-left: 0;     /* FIXED */
+  padding: 40px 60px;
+}
+
+
+
+/* Inputs */
+.input-field {
+  width: 100%;
+  padding: 14px;
+  margin-top: 6px;
+  border-radius: 12px;
+  background: #f4f4f7;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+/* Focus Input */
+.input-field:focus {
+  outline: none;
+  border-color: #b0b0b0;
+  background: #fff;
+}
+
+/* Submit Button */
+.addroom-btn {
+  margin-top: 30px;
+  width: 100%;
+  padding: 15px;
+  background: #020012;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.addroom-btn:hover {
+  opacity: 0.95;
+}

@@ -1,0 +1,93 @@
+.page-container  {
+  margin-left: 150px;     /* FIXED */
+  padding: 40px 40px;
+  width: 100%;        /* FIXED */
+}
+
+
+
+/* TITLE & SUBTITLE ALIGNED LEFT */
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  text-align: left;
+}
+
+.subtitle {
+  color: #777;
+  font-size: 16px;
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+/* RENT CARD FULL-WIDTH JUST LIKE FIGMA */
+.rent-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  padding: 22px;
+  border-radius: 14px;
+  width: 80%;          
+  min-width: 500px;   
+  margin-bottom: 22px;
+  text-align: left;
+}
+
+.rent-label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.rent-input {
+  width: 100%;
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 16px;
+  margin-top: 8px;
+}
+
+/* SAVE BUTTON FULL WIDTH */
+.save-btn {
+  width: 80%;
+  padding: 15px;
+  background: #000;
+  color: #fff;
+  font-size: 17px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 20px 0;
+  display: block;     /* makes it act like a full-width element */
+  margin-left: 0;
+
+}
+
+/* SUMMARY SECTION */
+.summary-card {
+  width: 80%;
+  min-width: 500px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  padding: 22px;
+  margin-top: 10px;
+}
+
+.summary-title {
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
