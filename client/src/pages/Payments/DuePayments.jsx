@@ -72,10 +72,10 @@ const getStatusConfig = (status) => {
       color: "#28a745",
     },
     Pending: {
-      badge: "bg-info",
+      badge: "bg-danger",
       text: "text-light",
       icon: "◐",
-      color: "#17a2b8",
+      color: "#f89a17ff",
     },
   };
   return config[status] || config.Pending;
@@ -85,7 +85,7 @@ const getStatusConfig = (status) => {
 function SummaryCard({ title, value, color, icon }) {
   return (
     <div className="col-md-3 col-sm-6 mb-1">
-      <div className="card border-0 shadow-sm h-75">
+      <div className="card border-0 shadow-sm h-100">
         <div className="card-body">
           <div className="d-flex justify-content-between align-items-start">
             <div>
@@ -94,7 +94,6 @@ function SummaryCard({ title, value, color, icon }) {
                 {value}
               </h4>
             </div>
-            <span className="fs-5">{icon}</span>
           </div>
         </div>
       </div>
@@ -174,14 +173,14 @@ function FilterSection({ search, setSearch, status, setStatus, month, setMonth, 
 function ActionButtons({ record, onViewDetails, onSendReminder }) {
   return (
     <div className="btn-group btn-group-sm" role="group">
-      <button
+      {/* <button
         className="btn btn-primary m-3 rounded-2"
         onClick={() => onViewDetails(record)}
         title="View payment details"
       >
         View
-      </button>
-      {/* {record.status !== "Paid" && (
+      </button> */}
+      {record.status !== "Paid" && (
         <button
           className="btn btn-warning m-3 rounded-2"
           onClick={() => onSendReminder(record)}
@@ -189,7 +188,7 @@ function ActionButtons({ record, onViewDetails, onSendReminder }) {
         >
           Reminder
         </button>
-      )} */}
+      )}
     </div>
   );
 }
@@ -248,7 +247,7 @@ function DuePayments() {
       {/* Header */}
       <div className="mb-2">
         <h4 className="mb-1">
-          <i className="bi bi-exclamation-triangle text-warning me-2"></i>
+          {/* <i className="bi bi-exclamation-triangle text-warning me-2"></i> */}
           Due Payments
         </h4>
         <small className="text-muted">Track and manage pending payments</small>
@@ -354,8 +353,8 @@ function DuePayments() {
                       </td>
                       <td>{new Date(p.dueDate).toLocaleDateString("en-IN")}</td>
                       <td>
-                        <span className={`badge rounded-pill ${statusConfig.badge}`}>
-                          {statusConfig.icon} {p.status}
+                        <span className={`badge p-2 rounded-pill ${statusConfig.badge}`}>
+                           {p.status}
                         </span>
                       </td>
                       <td className="text-end">
