@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
-const Profile = () => {
+const Navbar = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('kyc');
   const [isEditing, setIsEditing] = useState(false);
@@ -13,19 +13,6 @@ const Profile = () => {
     gender: 'Male',
     dateOfBirth: '01/01/1995'
   });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setPersonalInfo(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSave = () => {
-    setIsEditing(false);
-    console.log('Saved:', personalInfo);
-  };
 
   return (
     <div className="fullscreen-profile-page">
@@ -71,4 +58,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Navbar;
