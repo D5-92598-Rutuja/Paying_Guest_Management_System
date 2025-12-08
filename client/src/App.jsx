@@ -4,7 +4,6 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { ToastContainer } from "react-toastify";
 
 import Dashboard from './pages/Dashboard/Dashboard'
-import Register from './pages/Register/Register'
 import Login from './pages/Login/Login'
 import AddRoom from './pages/RoomManagement/AddRoom'
 import UpdateRoom from './pages/RoomManagement/UpdateRoom'
@@ -34,10 +33,6 @@ function App() {
             <Route
               path='login'
               element={<Login />}
-            />
-            <Route
-              path='register'
-              element={<Register />}
             />
             <Route
               path='home'
