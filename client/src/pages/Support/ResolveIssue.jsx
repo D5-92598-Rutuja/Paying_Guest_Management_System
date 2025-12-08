@@ -245,12 +245,12 @@ function ResolveIssues() {
   };
 
   return (
-    <div style={{ backgroundColor: "#f8f9fa", minHeight: "100vh", overflowY: "auto", padding: "20px" }}>
+    <div style={{ minHeight: "100vh", overflowY: "auto", padding: "20px" }}>
       {/* Header Section */}
       <div className="mb-4">
         <div className="d-flex justify-content-between align-items-start mb-4">
           <div>
-            <h1 style={{ fontSize: "2.5rem", fontWeight: "700", color: "#1a1a1a", marginBottom: "8px" }}>
+            <h1 style={{ fontSize: "2rem", fontWeight: "700", color: "#1a1a1a", marginBottom: "8px" }}>
               Resolve Issues
             </h1>
             <p className="text-muted" style={{ marginBottom: 0 }}>
