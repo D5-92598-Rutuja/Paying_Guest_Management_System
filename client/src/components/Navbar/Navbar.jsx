@@ -1,14 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-
-export default function Navbar() {
-  return (
-    <nav>
-      <h1>Navbar</h1>
-    </nav>
-  );
-}
-=======
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
@@ -120,4 +110,3 @@ function Navbar() {
 }
 
 export default Navbar;
->>>>>>> 60206ed9d0834d0eaf0c663e3f80230864ec0d22

@@ -41,15 +41,8 @@ function App() {
             >
 
             {/* Dashboard */}
-<<<<<<< HEAD
-            <Route path="/dashboard" element={<Dashboard/>} />
+            <Route path="dashboard" element={<Dashboard/>} />
            
-=======
-            <Route path="Dashboard" element={
-              <Dashboard/>} 
-              />
->>>>>>> 60206ed9d0834d0eaf0c663e3f80230864ec0d22
-
              {/* Room Management */}
             <Route path="rooms-add" element={<AddRoom />} />
             <Route path="rooms-update" element={<UpdateRoom />} />
