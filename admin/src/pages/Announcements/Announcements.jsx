@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './announcements.css';
+import './Announcements.css';
 
 const Announcement = () => {
   const [title, setTitle] = useState('');
