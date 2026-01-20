@@ -1,0 +1,107 @@
+/* announcements.css */
+
+.page-container {
+  min-height: 100vh;
+  background: #f7f7f7;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+.page-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #222;
+}
+
+.page-subtitle {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #777;
+}
+
+.announcement-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.card-header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.priority-high {
+  background: #ef4444;
+}
+.priority-medium {
+  background: #facc15;
+}
+.priority-low {
+  background: #60a5fa;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+}
+
+.card-meta {
+  font-size: 13px;
+  color: #666;
+  margin-top: 2px;
+}
+
+.tag {
+  background: #efefef;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  margin-right: 8px;
+}
+
+.card-content {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  max-width: 700px;
+}
+
+.card-side {
+  text-align: right;
+  font-size: 13px;
+  color: #666;
+}
+
+.card-datetime {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 4px;
+  color: #444;
+}
