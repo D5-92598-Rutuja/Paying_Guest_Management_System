@@ -1,0 +1,89 @@
+.announcement-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.announcement-stats {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.stat-box {
+  background: #f6f6f6;
+  padding: 15px;
+  border-radius: 8px;
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+}
+
+.create-form {
+  background: white;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.create-form input,
+.create-form textarea,
+.create-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.date-fields {
+  display: flex;
+  gap: 20px;
+}
+
+.post-btn {
+  width: 100%;
+  padding: 12px;
+  background: #000822;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.announcement-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.announcement-table th,
+.announcement-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ccc;
+}
+
+.status-tag {
+  padding: 5px 10px;
+  border-radius: 6px;
+  color: white;
+  font-size: 12px;
+}
+
+.status-tag.active {
+  background: #0f6;
+}
+
+.status-tag.inactive {
+  background: #ccc;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.icon-btn.delete {
+  color: red;
+}

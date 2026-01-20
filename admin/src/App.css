@@ -1,0 +1,36 @@
+.sidebar-link {
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #333;
+  text-decoration: none;
+}
+
+.sidebar-link:hover {
+  background-color: #f0f0f0;
+}  
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.sidebar-link.active {
+  background-color: #f2f4ff;
+  color: #4c6ef5;
+  font-weight: 600;
+}

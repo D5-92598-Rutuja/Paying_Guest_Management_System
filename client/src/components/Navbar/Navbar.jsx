@@ -1,112 +1,63 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import "./Navbar.css";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Navbar.css';
 
-function Navbar() {
+const Navbar = () => {
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState('kyc');
+  const [isEditing, setIsEditing] = useState(false);
+  const [personalInfo, setPersonalInfo] = useState({
+    fullName: 'John Doe',
+    email: 'john@example.com',
+    mobile: '9876543210',
+    gender: 'Male',
+    dateOfBirth: '01/01/1995'
+  });
+
   return (
-    <div className="sidebar bg-white border-end p-3">
+    <div className="fullscreen-profile-page">
+      {/* Top Navigation Bar */}
+      <nav className="fullscreen-profile-navbar">
+        <div className="fullscreen-profile-nav-container">
+          <h1 className="fullscreen-profile-brand-logo">PGConnect</h1>
+          <div className="fullscreen-profile-nav-actions">
+            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/home/dashboard')}>
+              <span className="fullscreen-profile-nav-icon">🏠</span>
+              <span>Home</span>
+            </button>
+            {/* <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/home/dashboard')}>
+              <span className="fullscreen-profile-nav-icon">📊</span>
+              <span>Dashboard</span>
+            </button> */}
+            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/home/rooms')}>
+              <span className="fullscreen-profile-nav-icon">🛏️</span>
+              <span>Book Room</span>
+            </button>
+            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/home/announcements')}>
+              <span className="fullscreen-profile-nav-icon">📢</span>
+              <span>Announcements</span>
+            </button>
+            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/home/payment')}>
+              <span className="fullscreen-profile-nav-icon">💰</span>
+              <span>Payment</span>
+            </button>
+            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/home/profile')}>
+              <span className="fullscreen-profile-nav-icon">👤</span>
+              <span>Profile</span>
+            </button>
+            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/home/support')}>
+              <span className="fullscreen-profile-nav-icon">❓</span>
+              <span>Support</span>
+            </button>
+            <button className="fullscreen-nav-login-btn" onClick={() => navigate('/login')}>Login / Register</button>
 
-      <h5 className="fw-bold mb-4">
-        PG Admin Panel</h5>
+          </div>
+        </div>
+      </nav>
 
-      <ul className="list-unstyled">
-
-        {/* Overview */}
-        <li className="text-uppercase small fw-semibold text-secondary mb-2">
-          Overview
-        </li>
-        <li>
-          <NavLink className="nav-link sidebar-link" 
-          to="/home/dashboard">
-            <i className="bi bi-speedometer2 me-2"></i> Dashboard
-          </NavLink>
-        </li>
-
-        {/* Room Management */}
-        <li className="text-uppercase small fw-semibold text-secondary mt-3 mb-2">
-          Room Management
-        </li>
-        <li>
-          <NavLink className="nav-link sidebar-link" 
-          to="/home/rooms-add">
-            <i className="bi bi-plus-circle me-2"></i> Add Room
-          </NavLink>
-        </li>
-        <li>
-          <NavLink className="nav-link sidebar-link" 
-          to="rooms-update">
-            <i className="bi bi-cash-stack me-2"></i> Set/Update Rent
-          </NavLink>
-        </li>
-
-        {/* Bookings */}
-        <li className="text-uppercase small fw-semibold text-secondary mt-3 mb-2">
-          Bookings
-        </li>
-        <li>
-          <NavLink className="nav-link sidebar-link" 
-          to="bookings-view">
-            <i className="bi bi-journal-bookmark me-2"></i> View Bookings
-          </NavLink>
-        </li>
-        <li>
-          <NavLink className="nav-link sidebar-link" 
-          to="/home/room-allocate">
-            <i className="bi bi-house-door me-2"></i> Allocate Room
-          </NavLink>
-        </li>
-
-        {/* Payments */}
-        <li className="text-uppercase small fw-semibold text-secondary mt-3 mb-2"> Payments
-        </li>
-        <li>
-          <NavLink className="nav-link sidebar-link" 
-          to="/home/payments-view">
-            <i className="bi bi-credit-card me-2"></i> View Payments
-          </NavLink>
-        </li>
-        <li>
-          <NavLink className="nav-link sidebar-link" 
-          to="/home/payments-due">
-            <i className="bi bi-exclamation-circle me-2"></i> Due Payments
-          </NavLink>
-        </li>
-
-        {/* User Management */}
-        <li className="text-uppercase small fw-semibold text-secondary mt-3 mb-2">
-          User Management
-        </li>
-        <li>
-          <NavLink className="nav-link sidebar-link" 
-          to="/home/users-verify">
-            <i className="bi bi-person-badge me-2"></i> Verify KYC
-          </NavLink>
-        </li>
-
-        {/* Support */}
-        <li className="text-uppercase small fw-semibold text-secondary mt-3 mb-2"> Support
-        </li>
-        <li>
-          <NavLink className="nav-link sidebar-link" 
-          to="/home/support-resolve">
-            <i className="bi bi-bug me-2"></i> Resolve Issues
-          </NavLink>
-        </li>
-
-        {/* Communication */}
-        <li className="text-uppercase small fw-semibold text-secondary mt-3 mb-2">
-          Communication
-        </li>
-        <li>
-          <NavLink className="nav-link sidebar-link" 
-          to="/home/announcements">
-            <i className="bi bi-megaphone me-2"></i> Post Announcement
-          </NavLink>
-        </li>
-
-      </ul>
+      
     </div>
   );
-}
+};
 
 export default Navbar;

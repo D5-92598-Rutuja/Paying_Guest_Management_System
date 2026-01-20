@@ -1,89 +1,107 @@
-.announcement-container {
-  padding: 20px;
+/* announcements.css */
+
+.page-container {
+  min-height: 100vh;
+  background: #f7f7f7;
+  padding: 2rem;
   font-family: Arial, sans-serif;
 }
 
-.announcement-stats {
+.page-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #222;
+}
+
+.page-subtitle {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #777;
+}
+
+.announcement-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 18px;
   display: flex;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.stat-box {
-  background: #f6f6f6;
-  padding: 15px;
-  border-radius: 8px;
-  flex: 1;
-  text-align: center;
-  font-weight: bold;
-}
-
-.create-form {
-  background: white;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-bottom: 30px;
-}
-
-.create-form input,
-.create-form textarea,
-.create-form select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-.date-fields {
-  display: flex;
+  justify-content: space-between;
   gap: 20px;
 }
 
-.post-btn {
-  width: 100%;
-  padding: 12px;
-  background: #000822;
+.card-header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
-  border-radius: 6px;
-  cursor: pointer;
+  font-weight: bold;
   font-size: 16px;
 }
 
-.announcement-table {
-  width: 100%;
-  border-collapse: collapse;
+.priority-high {
+  background: #ef4444;
+}
+.priority-medium {
+  background: #facc15;
+}
+.priority-low {
+  background: #60a5fa;
 }
 
-.announcement-table th,
-.announcement-table td {
-  padding: 12px;
-  border-bottom: 1px solid #ccc;
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
 }
 
-.status-tag {
-  padding: 5px 10px;
+.card-meta {
+  font-size: 13px;
+  color: #666;
+  margin-top: 2px;
+}
+
+.tag {
+  background: #efefef;
+  padding: 2px 8px;
   border-radius: 6px;
-  color: white;
-  font-size: 12px;
+  font-size: 11px;
+  margin-right: 8px;
 }
 
-.status-tag.active {
-  background: #0f6;
+.card-content {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  max-width: 700px;
 }
 
-.status-tag.inactive {
-  background: #ccc;
+.card-side {
+  text-align: right;
+  font-size: 13px;
+  color: #666;
 }
 
-.icon-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-right: 5px;
-}
-
-.icon-btn.delete {
-  color: red;
+.card-datetime {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 4px;
+  color: #444;
 }

@@ -2,40 +2,39 @@ import React, { useState } from 'react';
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
 
-// const Login = () => {
-//   const [isLogin, setIsLogin] = useState(true);
-//   const navigate = useNavigate();
-//   const [formData, setFormData] = useState({
-//     fullName: '',
-//     email: '',
-//     mobileNumber: '',
-//     gender: '',
-//     dateOfBirth: '',
-//     password: '',
-//     confirmPassword: ''
-//   });
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData(prev => ({
-//       ...prev,
-//       [name]: value
-//     }));
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (isLogin) {
-//       console.log('Login submitted:', { 
-//         email: formData.email, 
-//         password: formData.password 
-//       });
-//     } else {
-//       console.log('Register submitted:', formData);
-//     }
-//   };
-
 const Login = () => {
+  const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    mobileNumber: '',
+    gender: '',
+    dateOfBirth: '',
+    password: '',
+    confirmPassword: ''
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isLogin) {
+      console.log('Login submitted:', { 
+        email: formData.email, 
+        password: formData.password 
+      });
+    } else {
+      console.log('Register submitted:', formData);
+    }
+  };
+
   return (
     <div className="fullscreen-auth-page">
       {/* Top Navigation Bar */}
@@ -43,7 +42,7 @@ const Login = () => {
         <div className="fullscreen-nav-container">
           <h1 className="fullscreen-brand-logo">PGConnect</h1>
           <div className="fullscreen-nav-actions">
-            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/home/dashboard')}>
+            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/')}>
               <span className="fullscreen-profile-nav-icon">🏠</span>
               <span>Home</span>
             </button>
