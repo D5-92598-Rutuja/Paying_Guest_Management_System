@@ -6,10 +6,10 @@
   right: 0;
   bottom: 0;
   width: 100vw;
-  height: 100vh;
+  height: 75px;
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  /* background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%); */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   overflow-y: auto;
   z-index: 9999;
@@ -479,6 +479,8 @@
   padding: 5px 0;
 }
 
+
+
 /* Responsive */
 @media (max-width: 768px) {
   .fullscreen-profile-navbar {
@@ -534,3 +536,27 @@
     font-size: 1.8rem;
   }
 }
+
+
+/* adding login button css */
+.fullscreen-nav-login-btn {
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.fullscreen-nav-login-btn:hover {
+  background: #333;
+  transform: translateY(-1px);
+}
+
+ .fullscreen-nav-login-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }

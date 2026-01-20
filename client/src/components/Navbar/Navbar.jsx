@@ -21,34 +21,36 @@ const Navbar = () => {
         <div className="fullscreen-profile-nav-container">
           <h1 className="fullscreen-profile-brand-logo">PGConnect</h1>
           <div className="fullscreen-profile-nav-actions">
-            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/')}>
+            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/home/dashboard')}>
               <span className="fullscreen-profile-nav-icon">🏠</span>
               <span>Home</span>
             </button>
-            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/dashboard')}>
+            {/* <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/home/dashboard')}>
               <span className="fullscreen-profile-nav-icon">📊</span>
               <span>Dashboard</span>
-            </button>
-            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/rooms')}>
+            </button> */}
+            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/home/rooms')}>
               <span className="fullscreen-profile-nav-icon">🛏️</span>
               <span>Book Room</span>
             </button>
-            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/announcements')}>
+            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/home/announcements')}>
               <span className="fullscreen-profile-nav-icon">📢</span>
               <span>Announcements</span>
             </button>
-            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/payment')}>
+            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/home/payment')}>
               <span className="fullscreen-profile-nav-icon">💰</span>
               <span>Payment</span>
             </button>
-            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/profile')}>
+            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/home/profile')}>
               <span className="fullscreen-profile-nav-icon">👤</span>
               <span>Profile</span>
             </button>
-            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/support')}>
+            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/home/support')}>
               <span className="fullscreen-profile-nav-icon">❓</span>
               <span>Support</span>
             </button>
+            <button className="fullscreen-nav-login-btn" onClick={() => navigate('/login')}>Login / Register</button>
+
           </div>
         </div>
       </nav>
