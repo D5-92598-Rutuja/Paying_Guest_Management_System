@@ -2,54 +2,39 @@ package com.pg.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.pg.dtos.AuthRequest;
-import com.pg.dtos.UserResp;
+import com.pg.dtos.UserRespDTO;
+import com.pg.entities.User;
 import com.pg.service.UserService;
 
-@RestController 
+import lombok.RequiredArgsConstructor;
+
+@RestController
 @RequestMapping("/users")
-
+@RequiredArgsConstructor
 public class UserController {
-	// depcy
-	@Autowired
-	private UserService userService;
 
-	@GetMapping
-	public ResponseEntity<?> getAllUsers() {
-		System.out.println("in get all users");
-		List<UserResp> users = userService.getAllUsers();
-		if (users.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT) // SC 204
-					.build();
-		}
-		return ResponseEntity.ok(users);
-	}
+    private final UserService userService;
 
-	@GetMapping("/{userId}")
-	public ResponseEntity<?> getUserDetailsById(@PathVariable Long userId) {
-		System.out.println("in get user dtls " + userId);
-		return ResponseEntity.ok(userService.getUserDetails(userId));
+    // ✅ CREATE USER
+    @PostMapping
+    public ResponseEntity<UserRespDTO> createUser(@RequestBody User user) {
+        UserRespDTO response = userService.createUser(user);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
 
-	}
+    // ✅ GET ALL USERS
+    @GetMapping
+    public ResponseEntity<List<UserRespDTO>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
 
-	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@RequestBody  AuthRequest dto) {
-		System.out.println("in sign in " + dto);
-		return ResponseEntity.ok(userService.authenticateUser(dto));
-	}
-
-
+    // ✅ GET USER BY ID
+    @GetMapping("/{id}")
+    public ResponseEntity<UserRespDTO> getUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
+    }
 }

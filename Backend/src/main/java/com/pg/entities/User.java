@@ -1,5 +1,7 @@
 package com.pg.entities;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,32 +27,35 @@ public class User extends BaseEntity {
     @Column(length = 400, nullable = false)
     private String password;
 
-    @Column(nullable = false, length = 15)
-    private String contact;
+    @Column(name="mobile_no",nullable = false, length = 15)
+    private String mobileNo;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Gender gender;
 
-    private int age;
+    @Column(nullable = false)
+    private LocalDate dob;
 
-    @Column(length = 255)
-    private String address;
+//    @Column(length = 255)
+//    private String address;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
-    public User(String firstName, String lastName, String email,
-                String contact, Gender gender, int age,
-                String address, Role role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.contact = contact;
-        this.gender = gender;
-        this.age = age;
-        this.address = address;
-        this.role = role;
-    }
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+	public User(String firstName, String lastName, String email, String mobileNo, LocalDate dob) 
+	{
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.mobileNo = mobileNo;
+		this.dob = dob;
+	}
+    
+    
 }
