@@ -49,7 +49,7 @@ const Navbar = () => {
               <span className="fullscreen-profile-nav-icon">❓</span>
               <span>Support</span>
             </button>
-            <button className="fullscreen-nav-login-btn" onClick={() => navigate('/login')}>Login / Register</button>
+            <button className="fullscreen-nav-login-btn" onClick={() => navigate('/login')}>Logout</button>
 
           </div>
         </div>

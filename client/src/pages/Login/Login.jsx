@@ -37,20 +37,7 @@ const Login = () => {
 
   return (
     <div className="fullscreen-auth-page">
-      {/* Top Navigation Bar */}
-      <nav className="fullscreen-navbar">
-        <div className="fullscreen-nav-container">
-          <h1 className="fullscreen-brand-logo">PGConnect</h1>
-          <div className="fullscreen-nav-actions">
-            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/')}>
-              <span className="fullscreen-profile-nav-icon">🏠</span>
-              <span>Home</span>
-            </button>
-            <button className="fullscreen-nav-login-btn">Login / Register</button>
-          </div>
-        </div>
-      </nav>
-
+      
       {/* Main Content */}
       <div className="fullscreen-auth-content">
         <div className="fullscreen-auth-header">
