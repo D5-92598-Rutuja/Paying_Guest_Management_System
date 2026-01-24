@@ -7,9 +7,9 @@ import {
   ExclamationTriangle,
 } from "react-bootstrap-icons";
 
-import StatCard from "../../components/dashboard/StatCard";
-import ActivityItem from "../../components/dashboard/ActivityItem";
-import DashboardLayout from "../../components/dashboard/DashboardLayout";
+import StatCard from "../../components/Dashboard/StatCard";
+import ActivityItem from "../../components/Dashboard/ActivityItem";
+import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 
 const Dashboard = () => {
   return (
