@@ -30,7 +30,7 @@ function App() {
 
           {/* Login Register Routes */}
           <Route
-            path='login'
+            path='/login'
             element={<Login />}
           />
           <Route
