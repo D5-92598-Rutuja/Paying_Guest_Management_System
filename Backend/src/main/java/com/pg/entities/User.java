@@ -56,6 +56,5 @@ public class User extends BaseEntity {
 		this.mobileNo = mobileNo;
 		this.dob = dob;
 	}
-    
-    
+
 }
