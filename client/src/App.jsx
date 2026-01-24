@@ -4,7 +4,6 @@ import './App.css'
 import Payments from './pages/Payments/Payments';
 import Login from './pages/Login/Login';
 import Support from './pages/Support/Support';
-import Logout from './pages/Logout/Logout';
 
 import { ToastContainer } from 'react-toastify';
 import Home from './pages/Home/Home';
