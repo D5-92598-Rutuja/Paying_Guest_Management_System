@@ -15,6 +15,7 @@ import ResolveIssue from './pages/Support/ResolveIssue'
 import VerifyKYC from './pages/UserManagement/VerifyKYC'
 import Announcements from './pages/Announcements/Announcements'
 import Home from './pages/Home/Home';
+import HomePage from './components/ClientHome/HomePage';
 //import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 //import AuthProvider from './providers/AuthProvider'
 
@@ -22,7 +23,7 @@ import Home from './pages/Home/Home';
 function App() {
   return (
     <div>
-          <Routes>
+          <Routes> 
             {/* Default route */}
             <Route
               path='/'
@@ -39,6 +40,13 @@ function App() {
               //element={user ? <Home /> : <Navigate to='/login' />}
               element={<Home/>}
             >
+
+            {/*  Demo*/}
+            <Route
+              path='homepage'
+              //element={user ? <Home /> : <Navigate to='/login' />}
+              element={<HomePage/>}
+            ></Route>
 
             {/* Dashboard */}
             <Route path="dashboard" element={<Dashboard/>} />
