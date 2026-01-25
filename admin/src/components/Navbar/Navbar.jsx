@@ -1,8 +1,20 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/authSlice";
 import "./Navbar.css";
 
 function Navbar() {
+  
+  const navigate = useNavigate();
+  const dispatch = useDispatch();  
+
+  const handleLogout = () => {      
+    dispatch(logout());
+    navigate("/");
+  };
+
   return (
     <div className="sidebar bg-white border-end p-3">
 
@@ -103,7 +115,9 @@ function Navbar() {
             <i className="bi bi-megaphone me-2"></i> Post Announcement
           </NavLink>
         </li>
-
+        <button className="btn btn-outline-danger"
+          onClick={handleLogout}>Logout
+        </button>
       </ul>
     </div>
   );

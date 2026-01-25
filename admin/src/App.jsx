@@ -15,8 +15,7 @@ import ResolveIssue from './pages/Support/ResolveIssue'
 import VerifyKYC from './pages/UserManagement/VerifyKYC'
 import Announcements from './pages/Announcements/Announcements'
 import Home from './pages/Home/Home';
-//import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
-//import AuthProvider from './providers/AuthProvider'
+import ProtectedRoute from "./components/ProtectedRoute";
 
 
 function App() {
@@ -35,10 +34,13 @@ function App() {
               element={<Login />}
             />
             <Route
-              path='home'
-              //element={user ? <Home /> : <Navigate to='/login' />}
-              element={<Home/>}
-            >
+            path="/home"
+            element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        >
 
             {/* Dashboard */}
             <Route path="dashboard" element={<Dashboard/>} />
@@ -62,6 +64,7 @@ function App() {
             <Route path="users-verify" element={<VerifyKYC />} />
             <Route path="announcements" element={<Announcements />} />
           </Route>
+          <Route path="*" element={<Navigate to="/login" replace />} />
           </Routes>
             {/* used to show the toasts */}
       <ToastContainer />

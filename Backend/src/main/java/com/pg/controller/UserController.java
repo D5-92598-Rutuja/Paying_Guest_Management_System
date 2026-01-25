@@ -1,6 +1,5 @@
 package com.pg.controller;
 
-
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -37,5 +36,4 @@ public class UserController {
     public ResponseEntity<UserRespDTO> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
-
 }

@@ -1,70 +1,54 @@
-import { useState } from 'react'
 import { Routes, Route, Navigate } from "react-router-dom";
-import './App.css'
-import Payments from './pages/Payments/Payments';
-import Login from './pages/Login/Login';
-import Support from './pages/Support/Support';
+import "./App.css";
 
+import Login from "./pages/Login/Login";
+import Home from "./pages/Home/Home";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Announcements from "./pages/Announcements/Announcements";
+import BookRoom from "./pages/BookRoom/BookRoom";
+import Payments from "./pages/Payments/Payments";
+import Profile from "./pages/Profile/Profile";
+import Support from "./pages/Support/Support";
 
-import { ToastContainer } from 'react-toastify';
-import Home from './pages/Home/Home';
-import Profile from './pages/Profile/Profile';
-import Announcements from './pages/Announcements/Announcements';
-import Dashboard from './pages/Dashboard/Dashboard';
-import BookRoom from './pages/BookRoom/BookRoom';
+import ProtectedRoute from "./components/ProtectedRoute";
+
+import { ToastContainer } from "react-toastify";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        {/* <Navbar /> */}
+      <Routes>
+        {/* Default */}
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-        <Routes>
-          {/* Default route */}
-          <Route
-            path='/'
-            element={<Navigate to='/home/dashboard' />}
-          />
+        {/* Public Route */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
 
-          {/* Login Register Routes */}
-          <Route
-            path='/login'
-            element={<Login />}
-          />
-          <Route
-            path='home'
-            //element={user ? <Home /> : <Navigate to='/login' />}
-            element={<Home />}
-          >
-            {/* Dashboard */}
-            <Route path="dashboard" element={<Dashboard />} />
+        {/* USER Protected Routes */}
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="announcements" element={<Announcements />} />
+          <Route path="rooms" element={<BookRoom />} />
+          <Route path="payment" element={<Payments />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="support" element={<Support />} />
+        </Route>
 
-            {/* Room Announcements */}
-            <Route path="announcements" element={<Announcements />} />
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
 
-            {/*Room Booking  */}
-            <Route path="rooms" element={<BookRoom />} />
-
-            {/* Payments */}
-            <Route path="payment" element={<Payments />} />
-
-            {/* Users */}
-            <Route path="profile" element={<Profile />} />
-
-            {/* Support */}
-            <Route path="support" element={<Support />} />
-
-
-          </Route>
-        </Routes>
-        {/* used to show the toasts */}
-        <ToastContainer />
-
-      </div>
+      <ToastContainer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
