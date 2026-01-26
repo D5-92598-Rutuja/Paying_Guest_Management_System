@@ -46,15 +46,15 @@ public class Announcement extends BaseEntity{
     // ALL → everyone
     // ADMIN → only admin
     // USER → only users
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
-    private PostedFor postedFor;
+//    @Enumerated(EnumType.STRING)
+//    @Column(nullable = false, length = 20)
+//    private PostedFor postedFor;
 
     // Type of announcement
     // MAINTENANCE, EVENT, NOTICE
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
-    private AnnouncementType type;
+//    @Enumerated(EnumType.STRING)
+//    @Column(nullable = false, length = 20)
+//    private AnnouncementType type;
 
     // Date from which the announcement should be visible
     @Column(nullable = false)
