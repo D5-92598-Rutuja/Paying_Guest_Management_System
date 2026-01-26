@@ -7,13 +7,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.pg.entities.Kyc;
 import com.pg.entities.KycStatus;
+import com.pg.entities.User;
 
 public interface KycRepository extends JpaRepository<Kyc, Long> {
 
-    List<Kyc> findByStatus(KycStatus status);
+    Optional<Kyc> findByUser(User user);
 
     Optional<Kyc> findByKycCode(String kycCode);
 
+    List<Kyc> findByStatus(KycStatus status);
+
     long countByStatus(KycStatus status);
 }
-

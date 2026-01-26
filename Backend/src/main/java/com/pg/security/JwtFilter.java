@@ -29,7 +29,17 @@ public class JwtFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
 
         // ⛔ Skip JWT check for public endpoints
-        if (path.startsWith("/auth/")) {
+//        if (path.startsWith("/auth/")) {
+//            filterChain.doFilter(request, response);
+//            return;
+//        }
+
+        // ✅ SKIP STATIC FILES + PREFLIGHT
+        if (
+            "OPTIONS".equalsIgnoreCase(request.getMethod()) ||
+            path.startsWith("/files/") ||
+            path.startsWith("/auth/")
+        ) {
             filterChain.doFilter(request, response);
             return;
         }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,45 +15,33 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pg.entities.Kyc;
 import com.pg.service.KycService;
-
+//@CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/api/admin/kyc")
-@CrossOrigin
+@RequestMapping("/admin/kyc")
+@PreAuthorize("hasRole('ADMIN')")
 public class AdminKycController {
 
     @Autowired
     private KycService kycService;
 
-    // 🔹 Pending count (top card: "3 Pending")
-    @GetMapping("/pending/count")
-    public long getPendingCount() {
-        return kycService.getPendingCount();
-    }
-
-    // 🔹 List pending KYCs
     @GetMapping("/pending")
-    public List<Kyc> getPendingKycs() {
+    public List<Kyc> pendingKycs() {
+    	 System.out.println("🔥 Admin KYC CONTROLLER HIT");
         return kycService.getPendingKycs();
     }
 
-    // ✅ Approve
-    @PostMapping("/{kycCode}/approve")
-    public ResponseEntity<String> approveKyc(
-            @PathVariable String kycCode,
-            @RequestParam String adminName) {
-
-        kycService.approveKyc(kycCode, adminName);
-        return ResponseEntity.ok("KYC Approved");
+    @GetMapping("/pending/count")
+    public long pendingCount() {
+        return kycService.getPendingCount();
     }
 
-    // ❌ Reject
-    @PostMapping("/{kycCode}/reject")
-    public ResponseEntity<String> rejectKyc(
-            @PathVariable String kycCode,
-            @RequestParam String reason,
-            @RequestParam String adminName) {
+    @PostMapping("/{kycCode}/approve")
+    public void approve(@PathVariable String kycCode) {
+        kycService.approveKyc(kycCode);
+    }
 
-        kycService.rejectKyc(kycCode, reason, adminName);
-        return ResponseEntity.ok("KYC Rejected");
+    @PostMapping("/{kycCode}/reject")
+    public void reject(@PathVariable String kycCode) {
+        kycService.rejectKyc(kycCode);
     }
 }

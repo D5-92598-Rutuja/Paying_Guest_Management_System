@@ -30,8 +30,8 @@ public class AuthController {
     public LoginResponseDTO login(@RequestBody LoginRequestDTO req) {
 
         System.out.println("🔥 LOGIN CONTROLLER HIT");
-        System.out.println("EMAIL FROM REQUEST = " + req.getEmail());
-        System.out.println("PASSWORD FROM REQUEST = " + req.getPassword());
+        //System.out.println("EMAIL FROM REQUEST = " + req.getEmail());
+        //System.out.println("PASSWORD FROM REQUEST = " + req.getPassword());
 
         Authentication auth = authManager.authenticate(
             new UsernamePasswordAuthenticationToken(
