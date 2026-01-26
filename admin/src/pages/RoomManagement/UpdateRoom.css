@@ -1,12 +1,12 @@
 .page-container  {
-  margin-left: 150px;     /* FIXED */
+  margin-left: 150px;     
   padding: 40px 40px;
-  width: 100%;        /* FIXED */
+  width: 100%;       
 }
 
 
 
-/* TITLE & SUBTITLE ALIGNED LEFT */
+
 .page-title {
   font-size: 28px;
   font-weight: 700;
@@ -21,7 +21,7 @@
   text-align: left;
 }
 
-/* RENT CARD FULL-WIDTH JUST LIKE FIGMA */
+
 .rent-card {
   background: #fff;
   border: 1px solid #e5e5e5;
@@ -49,7 +49,7 @@
   margin-top: 8px;
 }
 
-/* SAVE BUTTON FULL WIDTH */
+
 .save-btn {
   width: 80%;
   padding: 15px;
@@ -60,12 +60,12 @@
   border-radius: 10px;
   cursor: pointer;
   margin: 20px 0;
-  display: block;     /* makes it act like a full-width element */
+  display: block;     
   margin-left: 0;
 
 }
 
-/* SUMMARY SECTION */
+
 .summary-card {
   width: 80%;
   min-width: 500px;

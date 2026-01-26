@@ -1,94 +1,90 @@
-/* MAIN PAGE CONTAINER */
+
 .addroom-container {
-  margin-left: 150px;     /* FIXED */
-  padding: 40px 40px;
-  width: 100%;        /* FIXED */
+  min-height: 100vh;
+  background: #f6f8fb;
+  padding: 40px 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 
-/* Page Title */
 .addroom-title {
   font-size: 32px;
   font-weight: 700;
-  margin-bottom: 6px;
-  text-align: left !important;
+  margin-bottom: 5px;
+  color: #111;
 }
 
-/* Subtitle */
+
 .addroom-subtitle {
-  color: #6c6c6c;
-  font-size: 16px;
+  color: #6b7280;
   margin-bottom: 25px;
-  text-align: left !important;
+  font-size: 14px;
 }
 
-/* SMALLER CARD SIZE */
+
 .addroom-card {
-  width: 65%;                 /* smaller width */
-  max-width: 750px;           /* stops it from becoming too wide */
-  background: #fff;
-  padding: 35px;
-  border-radius: 15px;
-  border: 1px solid #e5e5e5;
-  margin: 0;                  
-  text-align: left;
+  background: #ffffff;
+  max-width: 600px;
+  border-radius: 10px;
+  padding: 30px 35px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
 
-/* Section Heading */
 .section-title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   margin-bottom: 20px;
-  text-align: left !important;    /* remove center */
+  color: #111827;
 }
 
-/* Labels */
-label {
-  font-weight: 600;
-  margin-top: 12px;
+
+.addroom-card label {
   display: block;
-  color: #333;
+  margin-bottom: 8px;
+  margin-top: 18px;
+  font-weight: 500;
+  color: #374151;
+  font-size: 14px;
 }
-.page-container {
-  margin-left: 0;     /* FIXED */
-  padding: 40px 60px;
-}
 
 
-
-/* Inputs */
 .input-field {
   width: 100%;
-  padding: 14px;
-  margin-top: 6px;
-  border-radius: 12px;
-  background: #f4f4f7;
-  border: 1px solid #ddd;
-  font-size: 16px;
+  padding: 12px 14px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+  background: #f9fafb;
 }
 
-/* Focus Input */
+
 .input-field:focus {
-  outline: none;
-  border-color: #b0b0b0;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
   background: #fff;
 }
 
-/* Submit Button */
+
 .addroom-btn {
-  margin-top: 30px;
+  margin-top: 25px;
   width: 100%;
-  padding: 15px;
-  background: #020012;
-  color: white;
+  padding: 12px;
+  border-radius: 6px;
   border: none;
-  border-radius: 12px;
+  font-size: 15px;
   font-weight: 600;
-  font-size: 17px;
   cursor: pointer;
+  color: white;
+  background: linear-gradient(to right, #0f172a, #1e293b);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+
 .addroom-btn:hover {
-  opacity: 0.95;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
