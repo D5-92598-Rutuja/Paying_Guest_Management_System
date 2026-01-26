@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./AddRoom.css";
 
 function AddRoom() {
@@ -6,14 +7,41 @@ function AddRoom() {
   const [floorNumber, setFloorNumber] = useState("");
   const [roomNumber, setRoomNumber] = useState("");
 
+  const handleAddRoom = async () => {
+    if (!roomType || !floorNumber || !roomNumber) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    try {
+      const roomData = {
+        sharingType: roomType.toUpperCase(),   // IMPORTANT for enum
+        floorNumber: parseInt(floorNumber),
+        roomNumber: roomNumber,
+      };
+
+      await axios.post("http://localhost:8080/admin/rooms", roomData);
+
+
+      alert("Room Added Successfully ✅");
+
+      // clear form
+      setRoomType("");
+      setFloorNumber("");
+      setRoomNumber("");
+
+    } catch (error) {
+      console.error(error);
+      alert("Error adding room ❌");
+    }
+  };
+
   return (
     <div className="addroom-container">
-
       <h1 className="addroom-title">Add New Room</h1>
       <p className="addroom-subtitle">Add a new room to the system</p>
 
       <div className="addroom-card">
-
         <h2 className="section-title">Room Details</h2>
 
         <label>Room Type *</label>
@@ -25,6 +53,7 @@ function AddRoom() {
           <option value="">Select room type</option>
           <option value="Single">Single</option>
           <option value="Double">Double</option>
+          <option value="Triple">Triple</option>
         </select>
 
         <label>Floor Number *</label>
@@ -45,7 +74,9 @@ function AddRoom() {
           onChange={(e) => setRoomNumber(e.target.value)}
         />
 
-        <button className="addroom-btn">Add Room</button>
+        <button className="addroom-btn" onClick={handleAddRoom}>
+          Add Room
+        </button>
       </div>
     </div>
   );
