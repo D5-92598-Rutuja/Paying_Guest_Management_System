@@ -1,0 +1,137 @@
+.home {
+  font-family: Arial, sans-serif;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(to right, #4f46e5, #7c3aed);
+  padding: 60px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.hero-left {
+  width: 50%;
+}
+
+.hero-left h1 span {
+  color: yellow;
+}
+
+.hero-buttons {
+  margin-top: 20px;
+}
+
+.primary {
+  background: gold;
+  border: none;
+  padding: 12px 20px;
+  margin-right: 10px;
+}
+
+.secondary {
+  background: white;
+  border: none;
+  padding: 12px 20px;
+}
+
+.hero-right img {
+  width: 350px;
+  border-radius: 10px;
+}
+
+.rating-box {
+  background: white;
+  color: black;
+  padding: 10px;
+  width: 150px;
+  margin-top: -50px;
+  margin-left: 180px;
+  border-radius: 10px;
+}
+
+/* AMENITIES */
+.amenities {
+  text-align: center;
+  padding: 50px;
+}
+
+.amenity-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  margin-top: 30px;
+}
+
+/* WHY */
+.why {
+  display: flex;
+  padding: 50px;
+}
+
+.stats {
+  display: flex;
+  gap: 40px;
+}
+
+.info-box {
+  background: #f3f4f6;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.green {
+  border-left: 5px solid green;
+}
+
+.purple {
+  border-left: 5px solid purple;
+}
+
+/* LOCATIONS */
+.locations {
+  padding: 50px;
+  text-align: center;
+}
+
+.location-grid {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.location-card {
+  background: linear-gradient(to right, #6366f1, #8b5cf6);
+  color: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 200px;
+}
+
+/* CTA */
+.cta {
+  background: linear-gradient(to right, #7c3aed, #4f46e5);
+  text-align: center;
+  color: white;
+  padding: 60px;
+}
+
+.cta button {
+  margin-top: 20px;
+  background: gold;
+  border: none;
+  padding: 15px 30px;
+}
+
+.amenity-card {
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+  cursor: pointer;
+  background-color: white;
+}
+
+.amenity-card:hover {
+  transform: translateY(-8px) scale(1.05); /* slight lift & pop */
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2); /* stronger shadow */
+  background-color: #f0f8ff; /* subtle light-blue pop */
+}
