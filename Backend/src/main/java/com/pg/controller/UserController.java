@@ -40,35 +40,27 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserById(id));
     }
     
-    // MY PROFILE
-//    @GetMapping("/me")
-//    public UserProfileResponse getMyProfile(
-//            @AuthenticationPrincipal UserDetails userDetails) {
-//
-//        return userService.getMyProfile(userDetails.getUsername());
-//    }
-//
-//    // UPDATE MY PROFILE
-//    @PutMapping("/me")
-//    public ResponseEntity<?> updateMyProfile(
-//            @AuthenticationPrincipal UserDetails userDetails,
-//            @RequestBody UserProfileRequest request) {
-//
-//        userService.updateMyProfile(userDetails.getUsername(), request);
-//        return ResponseEntity.ok("Profile updated");
-//    }
-    
+  //MY PROFILE
     @GetMapping("/me")
-    public UserProfileResponse getMyProfile() {
-        String username = "amit@pg.com"; // must match a DB record
-        return userService.getMyProfile(username);
+    public UserProfileResponse getMyProfile(Authentication authentication) {
+//  	  System.out.println("=== DEBUG ===");
+//  	    System.out.println("1. userDetails: " + userDetails);  // null?
+//  	    System.out.println("2. Header: " + request.getHeader("Authorization"));  // Bearer present?
+//  	    System.out.println("3. Auth: " + authentication);  // null or anonymousUser?
+//  	    System.out.println("4. Principal: " + (authentication != null ? authentication.getPrincipal() : "null"));
+//  	    System.out.println("=============");
+  	  String email = authentication.getPrincipal().toString();
+//  	  System.out.println("email:"+email);
+        return userService.getMyProfile(email);
     }
 
+    // UPDATE MY PROFILE
     @PutMapping("/me")
-    public ResponseEntity<?> updateMyProfile(@RequestBody UserProfileRequest request) {
-        String username = "amit@pg.com"; // must match a DB record
-        userService.updateMyProfile(username, request);
+    public ResponseEntity<?> updateMyProfile(Authentication authentication,
+            @RequestBody UserProfileRequest request) {
+  	  String email = authentication.getPrincipal().toString();
+
+        userService.updateMyProfile(email, request);
         return ResponseEntity.ok("Profile updated");
     }
-
 }
