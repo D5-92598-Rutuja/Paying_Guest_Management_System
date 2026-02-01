@@ -12,7 +12,7 @@ import com.pg.service.ProfileService;
 
 @RestController
 @RequestMapping("/client/profile")
-@PreAuthorize("hasRole('USER')")
+//@PreAuthorize("hasRole('USER')")
 @CrossOrigin("*")
 public class ProfileController {
 
@@ -22,9 +22,11 @@ public class ProfileController {
     @GetMapping("/room")
     public ResponseEntity<?> getUserRoomProfile(Authentication authentication) {
         try {
-      	 String email = authentication.getPrincipal().toString();
+            // Get email of logged-in user
+            String email = authentication.getName(); // safer than getPrincipal().toString()
 
-            return ResponseEntity.ok(profileService.getUserRoomProfile(email));
+            UserRoomProfileDTO profile = profileService.getUserRoomProfile(email);
+            return ResponseEntity.ok(profile);
         } catch (RuntimeException e) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
