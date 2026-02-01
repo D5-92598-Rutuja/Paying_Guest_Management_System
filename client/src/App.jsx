@@ -13,6 +13,7 @@ import Profile from './pages/Profile/Profile';
 import Announcements from './pages/Announcements/Announcements';
 import Dashboard from './pages/Dashboard/Dashboard';
 import BookRoom from './pages/BookRoom/BookRoom';
+import Chatbot from './components/componenets/Chatbot';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -62,6 +63,8 @@ function App() {
         </Routes>
         {/* used to show the toasts */}
         <ToastContainer />
+
+      <Chatbot/>
 
       </div>
     </>

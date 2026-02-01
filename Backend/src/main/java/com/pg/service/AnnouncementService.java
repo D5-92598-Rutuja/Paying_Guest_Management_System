@@ -11,4 +11,7 @@ public interface AnnouncementService {
 
 	ApiResponse addAnnouncement(Announcement a);
 	
+	Announcement updateAnnouncement(Long id, Announcement announcement);
+
+	void softDelete(Long id);
 }

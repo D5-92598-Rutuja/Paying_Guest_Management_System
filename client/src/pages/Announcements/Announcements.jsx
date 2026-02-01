@@ -5,7 +5,7 @@ export default function AnnouncementsPage() {
   const [announcements, setAnnouncements] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/announcements')
+    fetch('http://localhost:8080/api/announcements')
       .then((res) => res.json())
       .then((data) => setAnnouncements(data))
       .catch((err) => console.error(err));

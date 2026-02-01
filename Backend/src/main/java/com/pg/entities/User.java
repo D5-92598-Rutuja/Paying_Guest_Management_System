@@ -1,6 +1,11 @@
 package com.pg.entities;
 
 import java.time.LocalDate;
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -10,9 +15,9 @@ import lombok.Setter;
 @Entity
 @Table(name = "users")
 @AttributeOverride(name = "id", column = @Column(name = "user_id"))
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 public class User extends BaseEntity {
 
     @Column(nullable = false, length = 30)
@@ -24,37 +29,35 @@ public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(length = 400, nullable = false)
+    @Column(nullable = false, length = 400)
     private String password;
 
-    @Column(name="mobile_no",nullable = false, length = 15)
+    @Column(name = "mobile_no", nullable = false, length = 15)
     private String mobileNo;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private Gender gender;
 
-    @Column(nullable = false)
     private LocalDate dob;
 
-//    @Column(length = 255)
-//    private String address;
-
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private Role role;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
-	public User(String firstName, String lastName, String email, String mobileNo, LocalDate dob) 
-	{
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.mobileNo = mobileNo;
-		this.dob = dob;
-	}
-
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return AuthorityUtils.createAuthorityList(role.name());
+//    }
+//
+//    @Override
+//    public String getUsername() {
+//        return email;
+//    }
+//
+//    @Override
+//    public boolean isEnabled() {
+//        return status == Status.ACTIVE;
+//    }
 }
