@@ -1,11 +1,6 @@
 package com.pg.entities;
 
 import java.time.LocalDate;
-import java.util.Collection;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -20,9 +15,9 @@ import lombok.ToString;
 @Entity
 @Table(name = "users")
 @AttributeOverride(name = "id", column = @Column(name = "user_id"))
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
 public class User extends BaseEntity {
 
@@ -35,10 +30,10 @@ public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, length = 400)
+    @Column(length = 400, nullable = false)
     private String password;
 
-    @Column(name = "mobile_no", nullable = false, length = 15)
+    @Column(name="mobile_no",nullable = false, length = 15)
     private String mobileNo;
 
     @Enumerated(EnumType.STRING)
@@ -50,24 +45,24 @@ public class User extends BaseEntity {
     @Column(nullable = true)
     private LocalDate dob;
 
+//    @Column(length = 255)
+//    private String address;
+
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return AuthorityUtils.createAuthorityList(role.name());
-//    }
-//
-//    @Override
-//    public String getUsername() {
-//        return email;
-//    }
-//
-//    @Override
-//    public boolean isEnabled() {
-//        return status == Status.ACTIVE;
-//    }
+	public User(String firstName, String lastName, String email, String mobileNo, LocalDate dob) 
+	{
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.mobileNo = mobileNo;
+		this.dob = dob;
+	}
+
 }

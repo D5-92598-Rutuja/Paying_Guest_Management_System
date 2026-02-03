@@ -13,9 +13,7 @@ import Profile from './pages/Profile/Profile';
 import Announcements from './pages/Announcements/Announcements';
 import Dashboard from './pages/Dashboard/Dashboard';
 import BookRoom from './pages/BookRoom/BookRoom';
-<<<<<<< HEAD
 import Chatbot from './components/componenets/Chatbot';
-=======
 import RoomDetailsPage from './pages/BookRoom/RoomDetailsPage';
 import PaymentSuccess from './pages/Payments/PaymentSuccess';
 import BillPaymentSuccess from './pages/Payments/BillPaymentSuccess';
@@ -24,7 +22,6 @@ import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import ProtectedRoute from './components/ProtectedRoute';
 import Feedback from "./pages/Feedback/Feedback";
 
->>>>>>> 435c058182e35770fbaa5b0c50639bd23c1f1165
 
 function App() {
 
@@ -97,10 +94,7 @@ function App() {
         {/* used to show the toasts */}
         <ToastContainer />
 
-<<<<<<< HEAD
       <Chatbot/>
-=======
->>>>>>> 435c058182e35770fbaa5b0c50639bd23c1f1165
 
       </div>
     </>
