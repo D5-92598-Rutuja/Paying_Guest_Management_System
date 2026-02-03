@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pg.dtos.RegisterRequestDTO;
@@ -19,9 +20,10 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder encoder;
     private final ModelMapper modelMapper;
 
-        //  REGISTER USER
+    //REGISTER USER
     @Override
     public UserRespDTO registerUser(RegisterRequestDTO dto) {
 
