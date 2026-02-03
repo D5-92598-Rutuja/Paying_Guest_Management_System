@@ -85,7 +85,7 @@ public class AdminPaymentController {
         
         log.info("Fetching all monthly bills: page={}, size={}", page, size);
         
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "dueDate"));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "lastUpdated"));
         Page<MonthlyBillRespDTO> bills = paymentService.getAllMonthlyBills(pageable);
         
         return ResponseEntity.ok(bills);
