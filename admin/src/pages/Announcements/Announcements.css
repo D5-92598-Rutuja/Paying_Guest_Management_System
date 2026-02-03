@@ -1,89 +1,130 @@
 .announcement-container {
-  padding: 20px;
-  font-family: Arial, sans-serif;
+  max-width: 1100px;
+  margin: 30px auto;
+  font-family: "Segoe UI", sans-serif;
 }
 
-.announcement-stats {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.stat-box {
-  background: #f6f6f6;
-  padding: 15px;
-  border-radius: 8px;
-  flex: 1;
-  text-align: center;
-  font-weight: bold;
+h2 {
+  margin-bottom: 15px;
 }
 
 .create-form {
-  background: white;
+  background: #fff;
   padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   margin-bottom: 30px;
+}
+
+.create-form label {
+  font-weight: 600;
+  margin-top: 10px;
+  display: block;
 }
 
 .create-form input,
 .create-form textarea,
 .create-form select {
   width: 100%;
+  margin-top: 6px;
   padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
   border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.create-form textarea {
+  min-height: 80px;
 }
 
 .date-fields {
   display: flex;
-  gap: 20px;
+  gap: 15px;
+}
+
+.date-fields div {
+  flex: 1;
+}
+
+.btn-row {
+  margin-top: 15px;
 }
 
 .post-btn {
-  width: 100%;
-  padding: 12px;
-  background: #000822;
+  background: #007bff;
   color: white;
+  padding: 10px 18px;
+  border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 16px;
+}
+
+.cancel-btn {
+  margin-left: 10px;
+  background: #6c757d;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
 }
 
 .announcement-table {
   width: 100%;
   border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
 .announcement-table th,
 .announcement-table td {
   padding: 12px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #eee;
+}
+
+.announcement-table thead {
+  background: #f5f6f8;
+}
+
+.announcement-table tr:hover {
+  background: #f9fafc;
 }
 
 .status-tag {
-  padding: 5px 10px;
-  border-radius: 6px;
-  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
   font-size: 12px;
+  font-weight: 600;
 }
 
 .status-tag.active {
-  background: #0f6;
+  background: #e6f4ea;
+  color: #2e7d32;
 }
 
 .status-tag.inactive {
-  background: #ccc;
+  background: #fdecea;
+  color: #c62828;
 }
 
 .icon-btn {
-  background: none;
   border: none;
+  background: transparent;
   cursor: pointer;
-  margin-right: 5px;
+  font-size: 16px;
+  margin-right: 8px;
 }
 
-.icon-btn.delete {
-  color: red;
+.icon-btn.edit:hover {
+  color: #007bff;
+}
+
+.icon-btn.delete:hover {
+  color: #dc3545;
+}
+
+.empty {
+  text-align: center;
+  padding: 20px;
+  color: #777;
 }

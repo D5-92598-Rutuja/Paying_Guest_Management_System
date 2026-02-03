@@ -1,45 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import './Announcements.css';
-import { getAnnouncements, addAnnouncement } from "../../services/announcemetService";
+import React, { useState, useEffect } from "react";
+import "./Announcements.css";
+import {
+  getAnnouncements,
+  addAnnouncement,
+  updateAnnouncement,
+  deleteAnnouncement,
+} from "../../services/announcemetService";
 
 const Announcement = () => {
   const [announcements, setAnnouncements] = useState([]);
+  const [editingId, setEditingId] = useState(null);
 
-  const [title, setTitle] = useState('');
-  const [message, setMessage] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [status, setStatus] = useState('ACTIVE');
-
-  // const announcements = [
-  //   {
-  //     id: 'ANN001',
-  //     title: 'Monthly Rent Due Reminder',
-  //     message:
-  //       'Please pay your monthly rent by 5th of October. Late payment charges apply after 10th.',
-  //     start: '10/1/2024',
-  //     end: '10/10/2024',
-  //     status: 'Active',
-  //   },
-  //   {
-  //     id: 'ANN002',
-  //     title: 'Wi-Fi Maintenance Schedule',
-  //     message:
-  //       'Internet services will be down for maintenance on Sunday from 2 AM to 6 AM.',
-  //     start: '10/6/2024',
-  //     end: '10/6/2024',
-  //     status: 'Active',
-  //   },
-  //   {
-  //     id: 'ANN003',
-  //     title: 'New Food Menu Available',
-  //     message:
-  //       'We have updated our mess menu with new dishes. Check it out at the mess hall.',
-  //     start: '9/20/2024',
-  //     end: '9/30/2024',
-  //     status: 'Inactive',
-  //   },
-  // ];
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [status, setStatus] = useState("ACTIVE");
+  const [type, setType] = useState("NOTICE"); // ✅ NEW
 
   useEffect(() => {
     loadAnnouncements();
@@ -51,58 +28,94 @@ const Announcement = () => {
       .catch((err) => console.log(err));
   };
 
-  // After form submit
+  // ADD / EDIT
   const handleSubmit = (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  console.log({ title, message, startDate, endDate, status });
+    const data = {
+      title,
+      message,
+      status,
+      postedFor: "ALL",
+      type, // ✅ dynamic type
+      startDate,
+      endDate,
+    };
 
-  const data = {
-    title,
-    message,
-    status,
-    postedFor: "ALL",
-    type: "NOTICE",
-    startDate,
-    endDate
+    if (editingId) {
+      updateAnnouncement(editingId, data)
+        .then(() => {
+          alert("Announcement Updated Successfully");
+          resetForm();
+          loadAnnouncements();
+        })
+        .catch((err) => console.log(err));
+    } else {
+      addAnnouncement(data)
+        .then(() => {
+          alert("Announcement Added Successfully");
+          resetForm();
+          loadAnnouncements();
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
-  addAnnouncement(data)
-    .then(() => {
-      alert("Saved Successfully");
-      loadAnnouncements();
-    })
-    .catch(err => console.log(err));
-};
+  // EDIT
+  const handleEdit = (a) => {
+    setEditingId(a.id);
+    setTitle(a.title);
+    setMessage(a.message);
+    setStartDate(a.startDate);
+    setEndDate(a.endDate);
+    setStatus(a.status);
+    setType(a.type); // ✅ important
+  };
 
+  // DELETE
+  const handleDelete = (id) => {
+    if (!window.confirm("Are you sure you want to delete this announcement?"))
+      return;
+
+    deleteAnnouncement(id)
+      .then(() => {
+        alert("Announcement Deleted Successfully");
+        loadAnnouncements();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const resetForm = () => {
+    setEditingId(null);
+    setTitle("");
+    setMessage("");
+    setStartDate("");
+    setEndDate("");
+    setStatus("ACTIVE");
+    setType("NOTICE"); // ✅ reset
+  };
 
   return (
     <div className="announcement-container">
-      <h2>Post Announcement</h2>
+      <h2>Announcements</h2>
 
-      <div className="announcement-stats">
-        <div className="stat-box">2 Active Announcements</div>
-        <div className="stat-box">3 Total Announcements</div>
-        <div className="stat-box">0 This Week</div>
-      </div>
-
-      {/* Add Announcement */}
+      {/* FORM */}
       <form className="create-form" onSubmit={handleSubmit}>
-        <h3>Create New Announcement</h3>
+        <h3>{editingId ? "Edit Announcement" : "Create Announcement"}</h3>
 
         <label>Title *</label>
         <input
           type="text"
-          placeholder="Enter announcement title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          required
         />
 
         <label>Message *</label>
         <textarea
-          placeholder="Enter announcement message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          required
         />
 
         <div className="date-fields">
@@ -112,6 +125,7 @@ const Announcement = () => {
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
+              required
             />
           </div>
 
@@ -121,26 +135,50 @@ const Announcement = () => {
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
+              required
             />
           </div>
         </div>
 
+        {/* ✅ TYPE INPUT */}
+        <label>Announcement Type *</label>
+        <select value={type} onChange={(e) => setType(e.target.value)}>
+          <option value="MAINTENANCE">Maintenance</option>
+          <option value="EVENT">Event</option>
+          <option value="NOTICE">Notice</option>
+        </select>
+
         <label>Status *</label>
         <select value={status} onChange={(e) => setStatus(e.target.value)}>
           <option value="ACTIVE">Active</option>
-          <option value="IACTIVE">Inactive</option>
+          <option value="INACTIVE">Inactive</option>
         </select>
 
-        <button type="submit" className="post-btn">Post Announcement</button>
+        <div className="btn-row">
+          <button type="submit" className="post-btn">
+            {editingId ? "Update Announcement" : "Post Announcement"}
+          </button>
+
+          {editingId && (
+            <button
+              type="button"
+              className="cancel-btn"
+              onClick={resetForm}
+            >
+              Cancel
+            </button>
+          )}
+        </div>
       </form>
 
-      <h3>Existing Announcements</h3>
+      {/* TABLE */}
       <table className="announcement-table">
         <thead>
           <tr>
             <th>ID</th>
             <th>Title</th>
             <th>Message</th>
+            <th>Type</th>
             <th>Start Date</th>
             <th>End Date</th>
             <th>Status</th>
@@ -148,24 +186,43 @@ const Announcement = () => {
           </tr>
         </thead>
         <tbody>
-          {announcements.map((a) => (
-            <tr key={a.id}>
-              <td>{a.id}</td>
-              <td>{a.title}</td>
-              <td>{a.message}</td>
-              <td>{a.startDate}</td>
-              <td>{a.endDate}</td>
-              <td>
-                <span className={`status-tag ${a.status.toLowerCase()}`}>
-                  {a.status}
-                </span>
-              </td>
-              <td>
-                <button className="icon-btn">✏️</button>
-                <button className="icon-btn delete">🗑️</button>
+          {announcements.length === 0 ? (
+            <tr>
+              <td colSpan="8" className="empty">
+                No announcements found
               </td>
             </tr>
-          ))}
+          ) : (
+            announcements.map((a) => (
+              <tr key={a.id}>
+                <td>{a.id}</td>
+                <td>{a.title}</td>
+                <td>{a.message}</td>
+                <td>{a.type}</td>
+                <td>{a.startDate}</td>
+                <td>{a.endDate}</td>
+                <td>
+                  <span className={`status-tag ${a.status.toLowerCase()}`}>
+                    {a.status}
+                  </span>
+                </td>
+                <td>
+                  <button
+                    className="icon-btn edit"
+                    onClick={() => handleEdit(a)}
+                  >
+                    ✏️
+                  </button>
+                  <button
+                    className="icon-btn delete"
+                    onClick={() => handleDelete(a.id)}
+                  >
+                    🗑️
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
@@ -173,4 +230,3 @@ const Announcement = () => {
 };
 
 export default Announcement;
-

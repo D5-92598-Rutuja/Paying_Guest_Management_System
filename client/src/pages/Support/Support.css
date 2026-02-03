@@ -1,0 +1,70 @@
+.support-container {
+  display: flex;
+  height: 100vh;
+  padding: 20px;
+  background: #f5f7fa;
+  gap: 20px;
+}
+
+.support-left,
+.support-right {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Left side form */
+.support-left input,
+.support-left textarea,
+.support-left select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.support-left button {
+  width: 100%;
+  padding: 10px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.support-left button:hover {
+  background: #125aa3;
+}
+
+/* Right side table */
+.support-right table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.support-right th,
+.support-right td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+/* Status badges */
+.status {
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.status.open {
+  background: orange;
+}
+
+.status.in_progress {
+  background: blue;
+}
+
+.status.resolved {
+  background: green;
+}

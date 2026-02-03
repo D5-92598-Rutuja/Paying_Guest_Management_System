@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
-import { logout } from "../../redux/authSlice";
 import axios from "../../service/axiosInstance";
 import './Profile.css';
 import { toast } from 'react-toastify';
@@ -16,9 +15,9 @@ const Profile = () => {
 
   const [activeTab, setActiveTab] = useState('kyc');
   const [isEditing, setIsEditing] = useState(false);
-    const [originalInfo, setOriginalInfo] = useState(null);
+  const [originalInfo, setOriginalInfo] = useState(null);
 
-      // ROOM STATE
+  // ROOM STATE
   const [roomDetails, setRoomDetails] = useState(null);
   const [roomError, setRoomError] = useState("");
 
@@ -64,8 +63,29 @@ const Profile = () => {
     setIsEditing(false);
   };
 
-  /* -------------------- KYC -------------------- */
+  /* -------------------- ROOM DETAILS -------------------- */
 
+useEffect(() => {
+    if (activeTab === "room") {
+      const fetchRoom = async () => {
+        try {
+          const res = await axios.get("/client/profile/room"); // match backend
+          setRoomDetails(res.data);
+          setRoomError("");
+        } catch (err) {
+          console.error("ROOM ERROR:", err.response?.data || err.message);
+          setRoomDetails(null);
+          setRoomError("Room not allocated yet");
+        }
+      };
+      fetchRoom();
+    } else {
+      setRoomDetails(null);
+      setRoomError("");
+    }
+  }, [activeTab]);
+
+  /* -------------------- KYC -------------------- */
   // Load KYC status from backend
   useEffect(() => {
     const loadKyc = async () => {
@@ -80,11 +100,6 @@ const Profile = () => {
     };
     loadKyc();
   }, []);
-
-
-    /* -------------------- ROOM DETAILS -------------------- */
-  // TEMPORARY (will come from login later)
-// const USER_ID = 2;
 
   /* -------------------- ROOM DETAILS -------------------- */
 // useEffect(() => {
@@ -165,37 +180,40 @@ useEffect(() => {
     <div className="fullscreen-profile-page">
       <div className="fullscreen-profile-content">
 
+        {/* HEADER */}
         <div className="fullscreen-profile-header">
           <h1 className="fullscreen-profile-main-title">Profile & KYC</h1>
           <p className="fullscreen-profile-subtitle">
             Manage your personal information and document verification
           </p>
+          <button className="btn btn-outline-danger" onClick={handleLogout}>
+            Logout
+          </button>
         </div>
 
-        {/* Tabs */}
+        {/* TABS */}
         <div className="fullscreen-profile-tab-container">
           <button
-            className={`fullscreen-profile-tab-btn ${activeTab === 'personal' ? 'active' : ''}`}
-            onClick={() => setActiveTab('personal')}
+            className={`fullscreen-profile-tab-btn ${activeTab === "personal" ? "active" : ""}`}
+            onClick={() => setActiveTab("personal")}
           >
             Personal Info
           </button>
-          {/* <button
-            className={`fullscreen-profile-tab-btn ${activeTab === 'room' ? 'active' : ''}`}
-            onClick={() => setActiveTab('room')}
+          <button
+            className={`fullscreen-profile-tab-btn ${activeTab === "room" ? "active" : ""}`}
+            onClick={() => setActiveTab("room")}
           >
             Room Details
-          </button> */}
+          </button>
+          
           <button
-            className={`fullscreen-profile-tab-btn ${activeTab === 'kyc' ? 'active' : ''}`}
-            onClick={() => setActiveTab('kyc')}
+            className={`fullscreen-profile-tab-btn ${activeTab === "kyc" ? "active" : ""}`}
+            onClick={() => setActiveTab("kyc")}
           >
             KYC Documents
           </button>
         </div>
 
-        {/* CONTENT */}
-        <div className="fullscreen-profile-card">
         {/* CARD */}
         <div className="fullscreen-profile-card">
 
@@ -236,7 +254,7 @@ useEffect(() => {
           )}
 
           {/* ROOM DETAILS */}
-          {/* {activeTab === "room" && (
+          {activeTab === "room" && (
             <div className="fullscreen-profile-section">
               <h2>Room Information</h2>
 
@@ -278,7 +296,7 @@ useEffect(() => {
           <Static label="Allocation Status" value={roomDetails.allocationStatus} />
         </div>
         <div className="fullscreen-profile-status-card">
-          ✓ Room {roomDetails.roomStatus}
+           Room {roomDetails.roomStatus}
         </div>
       </>
     )}
@@ -293,29 +311,6 @@ useEffect(() => {
               </h2>
 
               {kycStatus === "NEW" && (
-                // <>
-                //   <div className="upload-box">
-                //     <label>Aadhaar Card</label>
-                //     <input
-                //       type="file"
-                //       accept="image/*,.pdf"
-                //       onChange={(e) => setAadhaarFile(e.target.files[0])}
-                //     />
-                //   </div>
-
-                //   <div className="upload-box">
-                //     <label>Recent Photo</label>
-                //     <input
-                //       type="file"
-                //       accept="image/*"
-                //       onChange={(e) => setPhotoFile(e.target.files[0])}
-                //     />
-                //   </div>
-
-                //   <button className="btn btn-primary" onClick={submitKyc}>
-                //     Submit KYC
-                //   </button>
-                // </>
                 <div className="fullscreen-profile-documents">
               <h2 className="fullscreen-profile-section-title">Required Documents</h2>
               <p className="fullscreen-profile-section-desc">
@@ -409,7 +404,6 @@ useEffect(() => {
     </div>
   );
 };
-
 
 /* -------------------- REUSABLE COMPONENTS -------------------- */
 const Field = ({ label, name, value, isEditing, onChange, type }) => (

@@ -52,9 +52,9 @@ public class Announcement extends BaseEntity{
 
     // Type of announcement
     // MAINTENANCE, EVENT, NOTICE
-//    @Enumerated(EnumType.STRING)
-//    @Column(nullable = false, length = 20)
-//    private AnnouncementType type;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private AnnouncementType type;
 
     // Date from which the announcement should be visible
     @Column(nullable = false)

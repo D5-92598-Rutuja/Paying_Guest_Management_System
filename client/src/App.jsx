@@ -13,6 +13,7 @@ import Profile from './pages/Profile/Profile';
 import Announcements from './pages/Announcements/Announcements';
 import Dashboard from './pages/Dashboard/Dashboard';
 import BookRoom from './pages/BookRoom/BookRoom';
+import Chatbot from './components/componenets/Chatbot';
 import RoomDetailsPage from './pages/BookRoom/RoomDetailsPage';
 import PaymentSuccess from './pages/Payments/PaymentSuccess';
 import BillPaymentSuccess from './pages/Payments/BillPaymentSuccess';
@@ -93,6 +94,7 @@ function App() {
         {/* used to show the toasts */}
         <ToastContainer />
 
+      <Chatbot/>
 
       </div>
     </>
