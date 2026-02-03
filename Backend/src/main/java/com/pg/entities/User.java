@@ -2,10 +2,15 @@ package com.pg.entities;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "users")
@@ -13,6 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class User extends BaseEntity {
 
     @Column(nullable = false, length = 30)
@@ -31,10 +37,12 @@ public class User extends BaseEntity {
     private String mobileNo;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Gender gender;
 
-    @Column(nullable = false)
+    @NotNull
+    @Past
+    @Column(nullable = true)
     private LocalDate dob;
 
 //    @Column(length = 255)
