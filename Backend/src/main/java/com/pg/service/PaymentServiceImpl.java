@@ -1,4 +1,4 @@
-package com.pg.service; 
+package com.pg.service; // Add .impl
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -30,6 +30,7 @@ import com.pg.dtos.MonthlyBillRespDTO;
 import com.pg.dtos.MonthlyBillsSummaryDTO;
 import com.pg.dtos.PaymentReqDTO;
 import com.pg.dtos.PaymentRespDTO;
+import com.pg.entities.Allocation;
 import com.pg.entities.BillStatus;
 import com.pg.entities.Booking;
 import com.pg.entities.BookingStatus;
@@ -40,12 +41,16 @@ import com.pg.entities.PaymentStatus;
 import com.pg.entities.PaymentType;
 import com.pg.entities.RentPolicy;
 import com.pg.entities.Room;
+import com.pg.entities.User;
+import com.pg.exception.UserNotFoundException;
 import com.pg.payloads.StripePaymentReqDTO;
+import com.pg.repository.AllocationRepository;
 import com.pg.repository.BookingRepository;
 import com.pg.repository.MonthlyBillRepository;
 import com.pg.repository.PaymentRepository;
 import com.pg.repository.RentPolicyRepository;
 import com.pg.repository.RoomRepository;
+import com.pg.repository.UserRepository;
 import com.pg.service.PaymentService;
 import com.pg.specifications.PaymentSpecifications;
 
@@ -80,6 +85,14 @@ public class PaymentServiceImpl implements PaymentService {
 	
 	@Autowired
 	private RoomRepository roomRepository;
+	
+	@Autowired
+    private AllocationRepository allocationRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+
+	
 
 	@Value("${stripe.api.key}")
 	private String stripeApiKey;
@@ -93,12 +106,13 @@ public class PaymentServiceImpl implements PaymentService {
 	public Map<String, Object> getDashboardMetrics() {
 		Map<String, Object> metrics = new HashMap<>();
 
+		// Existing metrics
 		//Names are misleading here , I have consider for this month and this year
 		metrics.put("totalRevenue", paymentRepository.getCurrentMonthRevenue());
 		metrics.put("failedTransactions", paymentRepository.getCurrentMonthCountByStatus(PaymentStatus.FAILED));
 		metrics.put("pendingTransactions", paymentRepository.getCurrentMonthCountByStatus(PaymentStatus.PENDING));
 
-		// Last 3 Months Revenue for Graph
+		// NEW: Last 3 Months Revenue for Graph
 		List<Map<String, Object>> revenueTrend = new ArrayList<>();
 		LocalDate now = LocalDate.now();
 
@@ -131,7 +145,7 @@ public class PaymentServiceImpl implements PaymentService {
 
 		Page<PaymentRespDTO> dtoPage = paymentPage.map(payment -> {
 			PaymentRespDTO dto = modelMapper.map(payment, PaymentRespDTO.class);
-			// Use JOIN FETCH in repo or DTO projection
+			// Fix N+1: Use JOIN FETCH in repo or DTO projection
 			// For now, simple concat (add @EntityGraph in repo for production)
             if (payment.getBooking() != null && payment.getBooking().getUser() != null) {
                 dto.setUserName(payment.getBooking().getUser().getFirstName() + " " + 
@@ -191,13 +205,13 @@ public class PaymentServiceImpl implements PaymentService {
 		Payment savedPayment = paymentRepository.save(payment);
 
 		try {
-			// Use frontendUrl dynamically
+			// ✅ Use frontendUrl dynamically
 			String successUrl = frontendUrl + "/home/payment-success?session_id={CHECKOUT_SESSION_ID}";
 			String cancelUrl = frontendUrl + "/home/rooms";
 
 			SessionCreateParams params = SessionCreateParams.builder().setMode(SessionCreateParams.Mode.PAYMENT)
-					.setSuccessUrl(successUrl) 
-					.setCancelUrl(cancelUrl)
+					.setSuccessUrl(successUrl) // 👈 Dynamic
+					.setCancelUrl(cancelUrl) // 👈 Dynamic
 					.setCustomerEmail(booking.getUser().getEmail())
 					.addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
 					.addLineItem(SessionCreateParams.LineItem.builder().setQuantity(1L)
@@ -215,7 +229,8 @@ public class PaymentServiceImpl implements PaymentService {
 
 			savedPayment.setTransactionId(session.getId()); // Store cs_test_a1ShEprk...
 			Payment persistedPayment = paymentRepository.save(savedPayment); // Update record
-		
+			
+//			session.getPaymentIntent();
 
 			Map<String, Object> response = new HashMap<>();
 			response.put("url", session.getUrl());
@@ -237,7 +252,7 @@ public class PaymentServiceImpl implements PaymentService {
 				.orElseThrow(() -> new RuntimeException("Payment not found for session: " + sessionId));
 		
 
-	    //System.out.println("++++++++++++++++recordAdvancePayment() "+getClass());
+	    System.out.println("++++++++++++++++recordAdvancePayment() "+getClass());
 		// 2. Mark as ADVANCE/SUCCESS
 		payment.setPaymentStatus(PaymentStatus.COMPLETED);
 		payment.setRemark("ADVANCE Payment - Frontend Confirmed");
@@ -304,7 +319,7 @@ public class PaymentServiceImpl implements PaymentService {
 	
 	//get monthly 
 	public List<MonthlyBill> getUnpaidBills(String email) {
-	//User user= userRepository.findByEmail(email).orElseThrow(()-> new UserNotFoundException("User not found "+getClass()));
+//		User user= userRepository.findByEmail(email).orElseThrow(()-> new UserNotFoundException("User not found "+getClass()));
 		
 		Allocation allocationDetails=allocationRepository.findTopByUserEmailOrderByCreatedOnDesc(email)
 									.orElseThrow(()-> new UserNotFoundException("User not found "+getClass()));;
@@ -400,14 +415,14 @@ public class PaymentServiceImpl implements PaymentService {
 	    bill.setLastUpdated(LocalDateTime.now());
 	    monthlyBillRepository.save(bill);
 	    
-	    // Rich success message
+	    // 👈 Rich success message
 	    return new ApiResponse(
 	        String.format("Bill #%d marked PAID via payment #%d", billId, payment.getId()),
 	        "SUCCESS"
 	    );
 	}
 
-		
+	
 	@Override
 	public Page<MonthlyBillRespDTO> getAllMonthlyBills(Pageable pageable) {
 	    Page<MonthlyBill> bills = monthlyBillRepository.findAll(pageable);
@@ -436,6 +451,7 @@ public class PaymentServiceImpl implements PaymentService {
 	    int currentYear = LocalDate.now().getYear();
 	    
 	    // Total records (ALL TIME)
+//	    Long totalRecords = monthlyBillRepository.count();
 	    Long totalRecords = monthlyBillRepository.countByMonthYear(currentMonth, currentYear);
 	    
 	    // Current month stats
@@ -457,5 +473,9 @@ public class PaymentServiceImpl implements PaymentService {
 	            .collectionRate(collectionRate)
 	            .build();
 	}
+
+
+
+
 
 }
