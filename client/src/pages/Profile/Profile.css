@@ -453,14 +453,14 @@
   margin-top: 30px;
   padding: 25px;
   background: #f0f7ff;
-  border: 2px solid #2196f3;
+  border: 2px solid #0e0f0f;
   border-radius: 10px;
 }
 
 .fullscreen-profile-guidelines h3 {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #1976d2;
+  color: #0b0b0b;
   margin: 0 0 15px 0;
 }
 
@@ -472,7 +472,7 @@
 
 .fullscreen-profile-guidelines li {
   font-size: 0.95rem;
-  color: #1976d2;
+  color: #0c0c0c;
   padding: 5px 0;
 }
 
@@ -531,3 +531,4 @@
     font-size: 1.8rem;
   }
 }
+
