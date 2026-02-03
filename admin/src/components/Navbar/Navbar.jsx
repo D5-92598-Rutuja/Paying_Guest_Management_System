@@ -1,8 +1,18 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import { logout } from "../../redux/authSlice";
 import "./Navbar.css";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();  
+
+  const handleLogout = () => {      
+    dispatch(logout());
+    navigate("/");
+  };
   return (
     <div className="sidebar bg-white border-end p-3">
 
@@ -26,16 +36,17 @@ function Navbar() {
         <li className="text-uppercase small fw-semibold text-secondary mt-3 mb-2">
           Room Management
         </li>
+       
         <li>
           <NavLink className="nav-link sidebar-link" 
-          to="/home/rooms-add">
-            <i className="bi bi-plus-circle me-2"></i> Add Room
+          to="/home/rooms-update">
+            <i className="bi bi-cash-stack me-2"></i> Set Rent
           </NavLink>
         </li>
-        <li>
+         <li>
           <NavLink className="nav-link sidebar-link" 
-          to="rooms-update">
-            <i className="bi bi-cash-stack me-2"></i> Set/Update Rent
+          to="rooms-add">
+            <i className="bi bi-plus-circle me-2"></i> Add Room
           </NavLink>
         </li>
 
@@ -68,7 +79,7 @@ function Navbar() {
         <li>
           <NavLink className="nav-link sidebar-link" 
           to="/home/payments-due">
-            <i className="bi bi-exclamation-circle me-2"></i> Due Payments
+            <i className="bi bi-exclamation-circle me-2"></i> Monthly Payments
           </NavLink>
         </li>
 
@@ -103,6 +114,22 @@ function Navbar() {
             <i className="bi bi-megaphone me-2"></i> Post Announcement
           </NavLink>
         </li>
+
+                {/* Feedback */}
+        <li className="text-uppercase small text-secondary mt-3 mb-2">
+          User Feedback
+        </li>
+        <li>
+          <NavLink className="nav-link sidebar-link" 
+          to="/home/feedback">
+            <i className="bi bi-star-fill me-2"></i> Feedback
+          </NavLink>
+        </li>
+        
+        <button className="btn btn-outline-danger"
+          onClick={handleLogout}
+          >Logout
+        </button>
 
       </ul>
     </div>
