@@ -3,6 +3,7 @@ package com.pg.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pg.dtos.AllocateRoomDTO;
+import com.pg.dtos.AllocationRespDTO;
 import com.pg.dtos.BookingReqDTO;
 import com.pg.dtos.BookingRespDTO;
 import com.pg.entities.Room;
@@ -21,20 +23,11 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/bookings")
+@PreAuthorize("hasRole('ADMIN')")
+@RequestMapping("/admin/bookings")
 public class BookingController {
 
     private final BookingService bookingService;
-
-    @PostMapping
-    public ResponseEntity<String> bookRoom(@RequestBody BookingReqDTO dto) {
-
-        Long userId = 1L;  
-
-        bookingService.createBooking(dto, userId);
-
-        return ResponseEntity.ok("Booking request created");
-    }
 
     @GetMapping
     public ResponseEntity<List<BookingRespDTO>> getAll() {
@@ -62,6 +55,16 @@ public class BookingController {
         );
     }
 
+    @GetMapping("/ready-allocations")
+    public ResponseEntity<List<AllocationRespDTO>> getReadyAllocations() {
+        return ResponseEntity.ok(bookingService.getReadyForAllocation());
+    }
+
+
+    @GetMapping("/ready-for-allocation")
+    public ResponseEntity<List<BookingRespDTO>> readyForAllocation() {
+        return ResponseEntity.ok(bookingService.getBookingsReadyForAllocation());
+    }
 
 
 }
