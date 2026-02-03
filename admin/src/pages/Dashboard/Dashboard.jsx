@@ -1,96 +1,115 @@
-import React from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import axios from "../../service/axiosInstance";
+import "./Dashboard.css";
+
 import {
-  House,
-  People,
-  CreditCard,
-  ExclamationTriangle,
-} from "react-bootstrap-icons";
+  AccumulationChartComponent,
+  AccumulationSeriesCollectionDirective,
+  AccumulationSeriesDirective,
+  Inject,
+  PieSeries,
+  AccumulationLegend,
+  AccumulationTooltip
+} from "@syncfusion/ej2-react-charts";
 
-import StatCard from "../../components/Dashboard/StatCard";
-import ActivityItem from "../../components/Dashboard/ActivityItem";
-import DashboardLayout from "../../components/Dashboard/DashboardLayout";
+export default function Dashboard() {
+  const [stats, setStats] = useState({});
+  const [activities, setActivities] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-const Dashboard = () => {
+  useEffect(() => {
+    axios.get("/api/dashboard")
+      .then(res => {
+        setStats(res.data.stats || {});
+        setActivities(res.data.activities || []);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <h3>Loading...</h3>;
+
+  const pieData = [
+    { x: "Booked Rooms", y: stats.bookedRooms || 0 },
+    { x: "Available Rooms", y: (stats.totalRooms || 0) - (stats.bookedRooms || 0) }
+  ];
+
+  
+
   return (
-    <DashboardLayout>
-      <Container fluid>
-        {/* Header */}
-        <h2 className="fw-bold">Admin Dashboard</h2>
-        <p className="text-muted">Overview of your PG management system</p>
+    <div className="dashboard">
 
-        {/* Stat Cards */}
-        <Row className="g-4 mt-3">
-          <Col lg={3} md={6}>
-            <StatCard
-              title="Total Rooms"
-              value="120"
-              desc="Available rooms in the system"
-              icon={<House />}
-            />
-          </Col>
+      {/* TOP STATS */}
+      <div className="stats-grid">
+        <div className="card">Total Rooms<br /><b>{stats.totalRooms || 0}</b></div>
+        <div className="card">Booked Rooms<br /><b>{stats.bookedRooms || 0}</b></div>
+        <div className="card">Pending Dues<br /><b>₹{stats.pendingDues || 0}</b></div>
+        <div className="card">Open Tickets<br /><b>{stats.unresolvedTickets || 0}</b></div>
+      </div>
 
-          <Col lg={3} md={6}>
-            <StatCard
-              title="Booked Rooms"
-              value="95"
-              desc="Currently occupied rooms"
-              icon={<People />}
-            />
-          </Col>
+      <div className="dashboard-main">
 
-          <Col lg={3} md={6}>
-            <StatCard
-              title="Pending Dues"
-              value="₹2,45,000"
-              desc="Outstanding payments"
-              icon={<CreditCard />}
-            />
-          </Col>
+        {/* DONUT CHART */}
+        <div className="chart-card">
+          <h3>Room Occupancy</h3>
 
-          <Col lg={3} md={6}>
-            <StatCard
-              title="Unresolved Tickets"
-              value="8"
-              desc="Customer care issues"
-              icon={<ExclamationTriangle />}
-            />
-          </Col>
-        </Row>
+          <AccumulationChartComponent
+            id="roomChart"
+            legendSettings={{ visible: true }}
+            tooltip={{ enable: true }}
+          >
+            <Inject services={[PieSeries, AccumulationLegend, AccumulationTooltip]} />
+            <AccumulationSeriesCollectionDirective>
+              <AccumulationSeriesDirective
+                dataSource={pieData}
+                xName="x"
+                yName="y"
+                innerRadius="60%"
+                radius="80%"
+                type="Pie"
+              />
+            </AccumulationSeriesCollectionDirective>
+          </AccumulationChartComponent>
+        </div>
 
-        {/* Recent Activities */}
-        <Card className="mt-5 shadow-sm border-0">
-          <Card.Body>
-            <h5 className="fw-semibold mb-4">Recent Activities</h5>
+        {/* RECENT ACTIVITIES */}
+        {/* RECENT ACTIVITIES */}
+{/* RECENT ACTIVITIES */}
+<div className="activity-card">
+  <h3>Recent Activities</h3>
 
-            <ActivityItem
-              text="New booking by John Doe for Room 101"
-              time="2 hours ago"
-              type="booking"
-            />
+  <div className="activity-list">
+    {activities.length === 0 && <p>No recent activity</p>}
 
-            <ActivityItem
-              text="Payment of ₹15,000 received from Jane Smith"
-              time="4 hours ago"
-              type="payment"
-            />
+    {activities
+      .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+      .map((act, index) => (
+        <div key={index} className="activity-item">
+          
+          {/* colored dot */}
+          <div className={`activity-dot ${act.type.toLowerCase()}`}></div>
 
-            <ActivityItem
-              text="KYC submitted by Mike Johnson"
-              time="6 hours ago"
-              type="kyc"
-            />
+          <div className="activity-content">
+            <div className="activity-top">
+              <p>{act.message}</p>
+              <span className={`badge ${act.type.toLowerCase()}`}>
+                {act.type}
+              </span>
+            </div>
+            <small>
+              {new Date(act.timestamp).toLocaleString()}
+            </small>
+          </div>
+        </div>
+      ))}
+  </div>
+</div>
 
-            <ActivityItem
-              text="Issue raised about AC in Room 205"
-              time="8 hours ago"
-              type="issue"
-            />
-          </Card.Body>
-        </Card>
-      </Container>
-    </DashboardLayout>
+
+      </div>
+    </div>
   );
-};
-
-export default Dashboard;
+}

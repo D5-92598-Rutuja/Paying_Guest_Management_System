@@ -12,7 +12,7 @@ import com.pg.service.ProfileService;
 
 @RestController
 @RequestMapping("/client/profile")
-//@PreAuthorize("hasRole('USER')")
+@PreAuthorize("hasRole('USER')")
 @CrossOrigin("*")
 public class ProfileController {
 
@@ -33,5 +33,6 @@ public class ProfileController {
                     .body(e.getMessage());
         }
     }
+    
 
 }

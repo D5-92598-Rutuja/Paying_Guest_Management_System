@@ -54,7 +54,7 @@ public class AnnouncementServiceImpl implements AnnouncementService{
     }
 
     // Get only ACTIVE announcements
-    public List<Announcement> getAllActive() {
+    public List<Announcement> getActiveAnnouncements() {
         return announcementRepository.findByStatus(AnnouncementStatus.ACTIVE);
     }
 }

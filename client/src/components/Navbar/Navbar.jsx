@@ -23,7 +23,7 @@ export default function Navbar() {
           {isLoggedIn ? (
             <>
               <button onClick={() => navigate("/dashboard")}>🏠 Home</button>
-              <button onClick={() => navigate("/rooms")}>🛏️ Book Room</button>
+              <button onClick={() => navigate("/rooms")}>🛏️ Book</button>
               <button onClick={() => navigate("/home/announcements")}>📢 Announcements</button>
               <button onClick={() => navigate("/home/payment")}>💰 Payment</button>
               <button onClick={() => navigate("/home/profile")}>👤 Profile</button>

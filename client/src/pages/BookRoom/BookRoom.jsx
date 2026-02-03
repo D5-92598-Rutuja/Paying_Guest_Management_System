@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react"; 
+import axios from "../../service/axiosInstance";
 import "./BookRoom.css";
 import BookingModal from "./BookingModal";
 import { useNavigate } from "react-router-dom";
@@ -27,13 +27,13 @@ export default function BookRoom() {
   }, []);
 
   const fetchRooms = async () => {
-    const res = await axios.get("http://localhost:8080/api/rooms");
+    const res = await axios.get("/client/rooms");
     setRoomsFromDB(res.data);
   };
 
   //fetch rent from rent_policy table
   const fetchRent = async () => {
-    const res = await axios.get("http://localhost:8080/api/rent");
+    const res = await axios.get("/client/rent");
     setRentPolicy({
       single: res.data.singleRent,
       double: res.data.doubleRent,

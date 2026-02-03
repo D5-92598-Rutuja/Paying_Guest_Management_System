@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from "../service/axiosInstance";
 
-const API_URL = "http://localhost:8080/api/announcements";
+const API_URL = "/admin/announcements";
 
 export const getAnnouncements = () => {
   return axios.get(API_URL);

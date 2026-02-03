@@ -38,7 +38,7 @@ function Payments() {
       });
     } catch (error) {
       console.error('Payment data error:', error.response?.data || error.message);
-      toast.error("Failed to load payment data");
+      // toast.error("Failed to load payment data");
     } finally {
       setLoading(false);
     }

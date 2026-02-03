@@ -1,0 +1,121 @@
+.dashboard {
+  padding: 20px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.dashboard-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 30px;
+  gap: 20px;
+}
+
+.chart-card,
+.activity-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.activity-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.tag {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: white;
+  height: fit-content;
+}
+
+.tag.booking { background: #4f46e5; }
+.tag.payment { background: #16a34a; }
+.tag.kyc { background: #f59e0b; }
+.tag.issue { background: #dc2626; }
+
+.activity-card {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.activity-list {
+  margin-top: 12px;
+}
+
+.activity-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 6px;
+}
+
+/* Dot colors by type */
+.activity-dot.ticket { background: #ef4444; }
+.activity-dot.kyc { background: #22c55e; }
+.activity-dot.booking { background: #3b82f6; }
+.activity-dot.payment { background: #f59e0b; }
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.activity-content p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.activity-content small {
+  color: gray;
+  font-size: 12px;
+}
+
+/* Badges */
+.badge {
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: white;
+}
+
+.badge.ticket { background: #ef4444; }
+.badge.kyc { background: #22c55e; }
+.badge.booking { background: #3b82f6; }
+.badge.payment { background: #f59e0b; }

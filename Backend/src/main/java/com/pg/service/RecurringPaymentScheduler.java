@@ -14,7 +14,7 @@ public class RecurringPaymentScheduler {
     private final PaymentService paymentService;
     
     @Scheduled(cron = "0 0 1 1 * ?") // 1 AM on 1st of every month
-    //@Scheduled(cron = "*/10 * * * * ?")
+//    @Scheduled(cron = "*/10 * * * * ?")
     public void processMonthlyBills() {
         log.info("Starting automatic monthly bill generation...");
         

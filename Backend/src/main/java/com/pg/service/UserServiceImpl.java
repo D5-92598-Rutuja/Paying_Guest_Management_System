@@ -22,26 +22,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-	private final UserRepository userRepository;
-    //private final PasswordEncoder encoder;
-    private final ModelMapper modelMapper;
-
-    // 🔹 REGISTER USER
-//    @Override
-//    public UserRespDTO registerUser(RegisterRequestDTO dto) {
-//
-//        if (userRepository.findByEmail(dto.getEmail()).isPresent()) { 
-//        	throw new EmailAlreadyExistsException("Email already registered");
-//        }
-//
-//        User user = modelMapper.map(dto, User.class);
-//
-//        user.setPassword(encoder.encode(dto.getPassword()));
-//        user.setRole(Role.ROLE_USER);     
-//        user.setStatus(Status.ACTIVE);
-//
-//        return modelMapper.map(userRepository.save(user), UserRespDTO.class);
-//    }
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
     private final ModelMapper modelMapper;
@@ -63,20 +43,14 @@ public class UserServiceImpl implements UserService {
         return modelMapper.map(userRepository.save(user), UserRespDTO.class);
     }
 
+
+    // CREATE USER (ADMIN)
     @Override
     public UserRespDTO createUser(User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
         User savedUser = userRepository.save(user);
         return modelMapper.map(savedUser, UserRespDTO.class);
     }
-
-
-    // 🔹 CREATE USER (ADMIN)
-//    @Override
-//    public UserRespDTO createUser(User user) {
-//        user.setPassword(encoder.encode(user.getPassword()));
-//        User savedUser = userRepository.save(user);
-//        return modelMapper.map(savedUser, UserRespDTO.class);
-//    }
 
     // 🔹 GET ALL USERS
     @Override

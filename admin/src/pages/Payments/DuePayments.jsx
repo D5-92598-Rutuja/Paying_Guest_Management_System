@@ -267,7 +267,7 @@ const DuePayments = () => {
                       <td className="ps-4 fw-600">#{bill.billId}</td>
                       <td>
                         <small className="d-block fw-bold">Booking #{bill.bookingId}</small>
-                        <small className="text-muted">Room Info</small>
+                        {/* <small className="text-muted">Room Info</small> */}
                       </td>
                       <td>{bill.monthName} {bill.year}</td>
                       <td className="text-end fw-bold">{formatAmount(bill.amount)}</td>

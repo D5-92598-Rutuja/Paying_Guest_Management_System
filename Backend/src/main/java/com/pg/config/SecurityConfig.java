@@ -43,17 +43,10 @@ public class SecurityConfig {
             )
             .authorizeHttpRequests(auth -> auth
 //            		//.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-//            		//.requestMatchers("/swagger-ui/*").permitAll()
-//            		.requestMatchers("/files/**").permitAll()
-//            	.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() 
-//                .requestMatchers("/auth/**").permitAll()
-//                .requestMatchers("/auth/password/**").permitAll()
-//                .requestMatchers("/client/**").hasRole("USER")
-//                .requestMatchers("/admin/**").hasRole("ADMIN")
             		// PUBLIC ENDPOINTS
                     .requestMatchers("/auth/**").permitAll()
                     .requestMatchers("/auth/password/**").permitAll()
-                    .requestMatchers("/api/**").permitAll()
+//                    .requestMatchers("/api/**").permitAll()
 
 
                     // Allow static files

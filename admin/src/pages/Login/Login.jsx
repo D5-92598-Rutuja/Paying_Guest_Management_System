@@ -94,7 +94,7 @@ const Login = () => {
             className="btn btn-outline-secondary me-2"
             onClick={() => navigate("/")}
           >
-            Home
+            🏠 Home
           </button>
           <button className="btn btn-dark">Login / Register</button>
         </div>
@@ -187,9 +187,9 @@ const Login = () => {
                         required
                       >
                         <option value="">Select</option>
-                        <option value="MALE">Male</option>
-                        <option value="FEMALE">Female</option>
-                        <option value="OTHER">Other</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
                       </select>
                     </div>
 

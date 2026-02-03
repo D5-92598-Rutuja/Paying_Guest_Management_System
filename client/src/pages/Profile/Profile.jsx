@@ -7,11 +7,11 @@ import { toast } from 'react-toastify';
 
 const Profile = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();  
+  const dispatch = useDispatch();
 
   const [aadhaarFile, setAadhaarFile] = useState(null);
   const [photoFile, setPhotoFile] = useState(null);
-  const [kycStatus, setKycStatus] = useState("NEW"); 
+  const [kycStatus, setKycStatus] = useState("NEW");
 
   const [activeTab, setActiveTab] = useState('kyc');
   const [isEditing, setIsEditing] = useState(false);
@@ -65,7 +65,7 @@ const Profile = () => {
 
   /* -------------------- ROOM DETAILS -------------------- */
 
-useEffect(() => {
+  useEffect(() => {
     if (activeTab === "room") {
       const fetchRoom = async () => {
         try {
@@ -102,45 +102,45 @@ useEffect(() => {
   }, []);
 
   /* -------------------- ROOM DETAILS -------------------- */
-// useEffect(() => {
-//   if (activeTab === "room") {
-//     axios
-//       .get("/api/profile/room", {
-//        // params: { userId: 14 } // hardcoded for now
-//       })
-//       .then(res => {
-//         setRoomDetails(res.data);
-//         setRoomError("");
-//       })
-//       .catch(err => {
-//         console.error("ROOM ERROR:", err);
-//         setRoomDetails(null);
-//         setRoomError("Room not allocated yet");
-//       });
-//   }
-// }, [activeTab]);
-useEffect(() => {
-  console.log("Tab changed to:", activeTab); // DEBUG
-  
-  if (activeTab === "room") {
-    const fetchRoom = async () => {
-      try {
-        const res = await axios.get("/api/profile/room");
-        console.log("Room data:", res.data); // DEBUG
-        setRoomDetails(res.data);
-        setRoomError("");
-      } catch (err) {
-        console.error("ROOM ERROR:", err.response?.data || err.message);
-        setRoomDetails(null);
-        setRoomError("Room not allocated yet");
-      }
-    };
-    fetchRoom();
-  } else {
-    setRoomDetails(null);
-    setRoomError("");
-  }
-}, [activeTab]);
+  // useEffect(() => {
+  //   if (activeTab === "room") {
+  //     axios
+  //       .get("/api/profile/room", {
+  //        // params: { userId: 14 } // hardcoded for now
+  //       })
+  //       .then(res => {
+  //         setRoomDetails(res.data);
+  //         setRoomError("");
+  //       })
+  //       .catch(err => {
+  //         console.error("ROOM ERROR:", err);
+  //         setRoomDetails(null);
+  //         setRoomError("Room not allocated yet");
+  //       });
+  //   }
+  // }, [activeTab]);
+  useEffect(() => {
+    console.log("Tab changed to:", activeTab); // DEBUG
+
+    if (activeTab === "room") {
+      const fetchRoom = async () => {
+        try {
+          const res = await axios.get("/client/profile/room");
+          console.log("Room data:", res.data); // DEBUG
+          setRoomDetails(res.data);
+          setRoomError("");
+        } catch (err) {
+          console.error("ROOM ERROR:", err.response?.data || err.message);
+          setRoomDetails(null);
+          setRoomError("Room not allocated yet");
+        }
+      };
+      fetchRoom();
+    } else {
+      setRoomDetails(null);
+      setRoomError("");
+    }
+  }, [activeTab]);
 
   // Upload Aadhaar
   const uploadAadhaar = async () => {
@@ -158,21 +158,21 @@ useEffect(() => {
 
   // Submit KYC
   const submitKyc = async () => {
-  if (!aadhaarFile || !photoFile) {
-    toast.warn("Please upload Aadhaar and Photo");
-    return;
-  }
+    if (!aadhaarFile || !photoFile) {
+      toast.warn("Please upload Aadhaar and Photo");
+      return;
+    }
 
-  try {
-    await uploadAadhaar();
-    await uploadPhoto();
-    await axios.post("/client/kyc/submit");
-    toast.success("KYC submitted successfully");
-    setKycStatus("PENDING");
-  } catch {
-    toast.error("KYC submission failed");
-  }
-};
+    try {
+      await uploadAadhaar();
+      await uploadPhoto();
+      await axios.post("/client/kyc/submit");
+      toast.success("KYC submitted successfully");
+      setKycStatus("PENDING");
+    } catch {
+      toast.error("KYC submission failed");
+    }
+  };
 
 
 
@@ -180,15 +180,13 @@ useEffect(() => {
     <div className="fullscreen-profile-page">
       <div className="fullscreen-profile-content">
 
+        
         {/* HEADER */}
         <div className="fullscreen-profile-header">
           <h1 className="fullscreen-profile-main-title">Profile & KYC</h1>
           <p className="fullscreen-profile-subtitle">
             Manage your personal information and document verification
           </p>
-          <button className="btn btn-outline-danger" onClick={handleLogout}>
-            Logout
-          </button>
         </div>
 
         {/* TABS */}
@@ -205,7 +203,7 @@ useEffect(() => {
           >
             Room Details
           </button>
-          
+
           <button
             className={`fullscreen-profile-tab-btn ${activeTab === "kyc" ? "active" : ""}`}
             onClick={() => setActiveTab("kyc")}
@@ -231,8 +229,8 @@ useEffect(() => {
                     className="fullscreen-profile-edit-btn"
                     onClick={() => setIsEditing(true)}
                   >
-                    
-                     Edit
+
+                    Edit
                   </button>
                 ) : (
                   <div className="fullscreen-profile-edit-actions">
@@ -245,7 +243,7 @@ useEffect(() => {
               <div className="fullscreen-profile-info-grid">
                 <Field label="First Name" name="firstName" value={personalInfo.firstName} isEditing={isEditing} onChange={handleInputChange} />
                 <Field label="Last Name" name="lastName" value={personalInfo.lastName} isEditing={isEditing} onChange={handleInputChange} />
-                <Field label="Email" name="email" value={personalInfo.email} isEditing={isEditing} onChange={() => toast.warn('You cannot modify email!')}  />
+                <Field label="Email" name="email" value={personalInfo.email} isEditing={isEditing} onChange={() => toast.warn('You cannot modify email!')} />
                 <Field label="Mobile" name="mobile" value={personalInfo.mobile} isEditing={isEditing} onChange={handleInputChange} />
                 <Field label="Gender" name="gender" value={personalInfo.gender} isEditing={isEditing} onChange={() => toast.warn('You cannot modify gender!')} />
                 <Field label="Date of Birth" name="dateOfBirth" value={personalInfo.dateOfBirth} isEditing={isEditing} onChange={handleInputChange} type="date" />
@@ -254,6 +252,7 @@ useEffect(() => {
           )}
 
           {/* ROOM DETAILS */}
+
           {activeTab === "room" && (
             <div className="fullscreen-profile-section">
               <h2>Room Information</h2>
@@ -269,39 +268,14 @@ useEffect(() => {
                     <Static label="Room Type" value={roomDetails.sharingType} />
                     <Static label="Monthly Rent" value={`₹${roomDetails.monthlyRent}`} />
                     <Static label="Allocation Status" value={roomDetails.allocationStatus} />
-
                   </div>
-
                   <div className="fullscreen-profile-status-card">
-                    ✓ Room {roomDetails.roomStatus}
+                    Room {roomDetails.roomStatus}
                   </div>
                 </>
               )}
             </div>
-          )} */}
-          {activeTab === "room" && (
-  <div className="fullscreen-profile-section">
-    <h2>Room Information</h2>
-    
-    {roomError && (
-      <p style={{ color: "red", marginTop: "10px" }}>{roomError}</p>
-    )}
-    
-    {roomDetails && (
-      <>
-        <div className="fullscreen-profile-info-grid">
-          <Static label="Room Number" value={roomDetails.roomNumber} />
-          <Static label="Room Type" value={roomDetails.sharingType} />
-          <Static label="Monthly Rent" value={`₹${roomDetails.monthlyRent}`} />
-          <Static label="Allocation Status" value={roomDetails.allocationStatus} />
-        </div>
-        <div className="fullscreen-profile-status-card">
-           Room {roomDetails.roomStatus}
-        </div>
-      </>
-    )}
-  </div>
-)}
+          )}
           {/* UPDATED KYC TAB */}
           {activeTab === 'kyc' && (
             <div className="fullscreen-profile-section">
@@ -309,66 +283,6 @@ useEffect(() => {
               <h2 className="fullscreen-profile-section-title">
                 KYC Verification
               </h2>
-
-              {kycStatus === "NEW" && (
-                <div className="fullscreen-profile-documents">
-              <h2 className="fullscreen-profile-section-title">Required Documents</h2>
-              <p className="fullscreen-profile-section-desc">
-                Upload clear photos or scans of the following documents
-              </p>
-
-              <div className="fullscreen-profile-doc-list">
-
-                {/* Aadhaar Upload */}
-                <div className="fullscreen-profile-doc-item">
-                  <div className="fullscreen-profile-doc-info">
-                    <h3>Aadhaar Card</h3>
-
-                    <div className="fullscreen-profile-doc-badges">
-                      <span className="badge-required">Required</span>
-                    </div>
-
-                    <input
-                      type="file"
-                      accept="image/*,.pdf"
-                      className="fullscreen-profile-file-input"
-                      onChange={(e) => setAadhaarFile(e.target.files[0])}
-                    />
-                  </div>
-                </div>
-
-                {/* Photo Upload */}
-                <div className="fullscreen-profile-doc-item">
-                  <div className="fullscreen-profile-doc-info">
-                    <h3>Recent Photograph</h3>
-
-                    <div className="fullscreen-profile-doc-badges">
-                      <span className="badge-required">Required</span>
-                    </div>
-
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="fullscreen-profile-file-input"
-                      onChange={(e) => setPhotoFile(e.target.files[0])}
-                    />
-                  </div>
-                </div>
-
-              </div>
-
-              <button
-              className="btn btn-dark fullscreen-profile-submit-btn"
-              onClick={submitKyc}
-            >
-              Submit for Verification
-            </button>
-
-            </div>
-
-
-              )}
-
               {kycStatus === "PENDING" && (
                 <div className="fullscreen-profile-status-card">
                   Your KYC is under verification
@@ -386,21 +300,80 @@ useEffect(() => {
                   KYC Rejected — Please re-upload documents
                 </div>
               )}
+              {(kycStatus === "NEW"|| kycStatus === "REJECTED")&& (
+                <div className="fullscreen-profile-documents">
+                  <h2 className="fullscreen-profile-section-title">Required Documents</h2>
+                  <p className="fullscreen-profile-section-desc">
+                    Upload clear photos or scans of the following documents
+                  </p>
+
+                  <div className="fullscreen-profile-doc-list">
+
+                    {/* Aadhaar Upload */}
+                    <div className="fullscreen-profile-doc-item">
+                      <div className="fullscreen-profile-doc-info">
+                        <h3>Aadhaar Card</h3>
+
+                        <div className="fullscreen-profile-doc-badges">
+                          <span className="badge-required">Required</span>
+                        </div>
+
+                        <input
+                          type="file"
+                          accept="image/*,.pdf"
+                          className="fullscreen-profile-file-input"
+                          onChange={(e) => setAadhaarFile(e.target.files[0])}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Photo Upload */}
+                    <div className="fullscreen-profile-doc-item">
+                      <div className="fullscreen-profile-doc-info">
+                        <h3>Recent Photograph</h3>
+
+                        <div className="fullscreen-profile-doc-badges">
+                          <span className="badge-required">Required</span>
+                        </div>
+
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="fullscreen-profile-file-input"
+                          onChange={(e) => setPhotoFile(e.target.files[0])}
+                        />
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <button
+                    className="btn btn-dark fullscreen-profile-submit-btn"
+                    onClick={submitKyc}
+                  >
+                    Submit for Verification
+                  </button>
+
+                </div>
+
+
+              )}
+
+              
               <div className="fullscreen-profile-guidelines">
                 <h3>Upload Guidelines</h3>
-                  <ul>
-                    <li>• Upload clear, readable images or PDFs</li>
-                    <li>• File size should be less than 2MB</li>
-                    <li>• Ensure all corners of the document are visible</li>
-                    <li>• Verification typically takes 24-48 hours</li>
-                  </ul>
+                <ul>
+                  <li>• Upload clear, readable images or PDFs</li>
+                  <li>• File size should be less than 2MB</li>
+                  <li>• Ensure all corners of the document are visible</li>
+                  <li>• Verification typically takes 24-48 hours</li>
+                </ul>
               </div>
             </div>
           )}
 
         </div>
       </div>
-    </div>
     </div>
   );
 };

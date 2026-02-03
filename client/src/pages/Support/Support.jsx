@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { toast } from "react-toastify";
+import axios from "../../service/axiosInstance";
 
 export default function Support() {
   const [showForm, setShowForm] = useState(false);
@@ -17,19 +18,19 @@ export default function Support() {
 
   const fetchTickets = () => {
     axios
-      .get("http://localhost:8080/api/tickets")
+      .get("/client/tickets")
       .then((res) => setTickets(res.data))
       .catch((err) => console.error(err.response?.data || err.message));
   };
 
   const submitTicket = () => {
     if (!subject || !description || !id) {
-      alert("Please fill all fields");
+      toast.warning("Please fill all fields");
       return;
     }
 
     axios
-      .post("http://localhost:8080/api/tickets", {
+      .post("/client/tickets", {
         subject,
         description,
         id: Number(id),
@@ -44,7 +45,7 @@ export default function Support() {
       })
       .catch((err) => {
         console.error(err.response?.data || err.message);
-        alert("Failed to create ticket");
+        toast.error("Failed to create ticket");
       });
   };
 
@@ -53,8 +54,8 @@ export default function Support() {
     <div className="container-fluid mt-4">
       <div className="row">
 
-        <h1>Customer Support</h1>
-        <br></br>
+        {/* <h1>Customer Support</h1>
+        <br></br> */}
 
         {/* LEFT PANEL - Form */}
         <div className="col-md-4 mb-4">
@@ -203,9 +204,6 @@ export default function Support() {
                     >
                       {ticket.category?.priority || "N/A"}
                     </span>
-                    <span className="badge bg-info text-dark">
-                      {new Date(ticket.createdAt).toLocaleDateString() || "N/A"}
-                    </span>
                   </div>
 
                   <p className="small text-muted flex-grow-1">
@@ -213,10 +211,6 @@ export default function Support() {
                       ? ticket.description.substring(0, 200) + "..."
                       : ticket.description}
                   </p>
-
-                  {/* <button className="btn btn-outline-primary w-25 mt-auto">
-                    View Details
-                  </button> */}
                 </div>
               </div>
             ))

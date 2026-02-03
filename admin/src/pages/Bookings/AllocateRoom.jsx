@@ -24,7 +24,7 @@ export default function AllocateRooms() {
   };
 
   const fetchRooms = async () => {
-    const res = await axios.get("/api/rooms");
+    const res = await axios.get("/admin/rooms");
     setRooms(res.data);
   };
 
