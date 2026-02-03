@@ -2,10 +2,13 @@ package com.pg.service;
 
 import java.util.List;
 
+import com.pg.dtos.RegisterRequestDTO;
 import com.pg.dtos.UserRespDTO;
 import com.pg.entities.User;
 
 public interface UserService {
+
+    UserRespDTO registerUser(RegisterRequestDTO dto);
 
     UserRespDTO createUser(User user);
 
