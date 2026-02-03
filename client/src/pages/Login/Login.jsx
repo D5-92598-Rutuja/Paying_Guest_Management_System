@@ -1,241 +1,269 @@
-import React, { useState } from 'react';
-import './Login.css';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../redux/authSlice";
+import axios from "../../service/axiosInstance";
+import { Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    mobileNumber: '',
-    gender: '',
-    dateOfBirth: '',
-    password: '',
-    confirmPassword: ''
+    fullName: "",
+    email: "",
+    mobileNumber: "",
+    gender: "",
+    dateOfBirth: "",
+    password: "",
+    confirmPassword: "",
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // ================= LOGIN =================
     if (isLogin) {
-      console.log('Login submitted:', { 
-        email: formData.email, 
-        password: formData.password 
-      });
-    } else {
-      console.log('Register submitted:', formData);
+     if (!formData.email || !formData.password) {
+      toast.error("Please fill all fields");
+      return;
+      }
+
+
+      try {
+        const res = await axios.post("/auth/login", {
+          email: formData.email,
+          password: formData.password,
+        });
+
+        dispatch(
+          loginSuccess({
+            token: res.data.token,
+            role: res.data.role,
+          })
+        );
+
+        if (res.data.role === "ROLE_ADMIN") {
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/rooms");
+        }
+      } catch (error) {
+       toast.error("Invalid email or password");
+      }
+    }
+
+    // ================= REGISTER =================
+    else {
+      if (formData.password !== formData.confirmPassword) {
+        toast.error("Passwords do not match");
+        return;
+      }
+
+
+      try {
+         await axios.post("/auth/register", {
+      firstName: formData.fullName.split(" ")[0],
+      lastName: formData.fullName.split(" ").slice(1).join(" "),
+      email: formData.email,
+      password: formData.password,
+      mobileNo: formData.mobileNumber,
+      gender: formData.gender,
+      dob: formData.dateOfBirth,
+        });
+
+        toast.success("Registration successful! Please login.");
+        setIsLogin(true);
+      } catch (error) {
+        toast.error("Registration failed");
+      }
     }
   };
 
   return (
-    <div className="fullscreen-auth-page">
-      {/* Top Navigation Bar */}
-      <nav className="fullscreen-navbar">
-        <div className="fullscreen-nav-container">
-          <h1 className="fullscreen-brand-logo">PGConnect</h1>
-          <div className="fullscreen-nav-actions">
-            <button className="fullscreen-profile-nav-btn" onClick={() => navigate('/')}>
-              <span className="fullscreen-profile-nav-icon">🏠</span>
-              <span>Home</span>
-            </button>
-            <button className="fullscreen-nav-login-btn">Login / Register</button>
-          </div>
+    <div className="min-vh-100 bg-light">
+      {/* Navbar */}
+      
+      <nav className="navbar navbar-light bg-white shadow-sm px-4">
+        <span className="navbar-brand fw-bold">PGConnect</span>
+        <div>
+          <button
+            className="btn btn-outline-secondary me-2"
+            onClick={() => navigate("/")}
+          >
+            🏠 Home
+          </button>
+          <button className="btn btn-dark">Login / Register</button>
         </div>
       </nav>
 
-      {/* Main Content */}
-      <div className="fullscreen-auth-content">
-        <div className="fullscreen-auth-header">
-          <h1 className="fullscreen-auth-main-title">Welcome to PGConnect</h1>
-          <p className="fullscreen-auth-subtitle">Your journey to the perfect PG starts here</p>
-        </div>
+      {/* Content */}
+      <div className="container d-flex flex-column align-items-center py-5">
+        <h1 className="fw-bold mb-2 text-center">Welcome to PGConnect</h1>
+        <p className="text-muted mb-4 text-center">
+          Your journey to the perfect PG starts here
+        </p>
 
-        {/* Tab Navigation */}
-        <div className="fullscreen-auth-tab-container">
+        {/* Tabs */}
+        <div className="btn-group mb-4">
           <button
-            className={`fullscreen-auth-tab-btn ${isLogin ? 'active' : ''}`}
+            className={`btn ${isLogin ? "btn-dark" : "btn-outline-dark"}`}
             onClick={() => setIsLogin(true)}
           >
             Login
           </button>
           <button
-            className={`fullscreen-auth-tab-btn ${!isLogin ? 'active' : ''}`}
+            className={`btn ${!isLogin ? "btn-dark" : "btn-outline-dark"}`}
             onClick={() => setIsLogin(false)}
           >
             Register
           </button>
         </div>
 
-        {/* Form Card */}
-        <div className="fullscreen-auth-form-card">
-          {isLogin ? (
-            /* Login Form */
-            <div className="fullscreen-form-wrapper">
-              <h2 className="fullscreen-form-heading">Login to Your Account</h2>
-              <p className="fullscreen-form-subheading">Enter your credentials to access your dashboard</p>
+        {/* Card */}
+        <div className="card shadow-sm w-100" style={{ maxWidth: "500px" }}>
+          <div className="card-body p-4">
+            <h4 className="fw-bold mb-1">
+              {isLogin ? "Login to Your Account" : "Create Your Account"}
+            </h4>
+            <p className="text-muted mb-4">
+              {isLogin
+                ? "Enter your credentials to continue"
+                : "Join thousands of happy residents"}
+            </p>
 
-              <form onSubmit={handleSubmit} className="fullscreen-auth-form">
-                <div className="fullscreen-form-field">
-                  <label htmlFor="email">Email</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="john@example.com"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-
-                <div className="fullscreen-form-field">
-                  <label htmlFor="password">Password</label>
-                  <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Enter your password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-
-                <button type="submit" className="fullscreen-form-submit-btn" onClick={() => navigate('/home/dashboard')}>
-                  Login
-                </button>
-
-                
-
-                <a href="#" className="fullscreen-forgot-password-link">
-                  Forgot Password?
-                </a>
-
-                <p className="fullscreen-terms-text">
-                  By continuing, you agree to our Terms of Service and Privacy Policy
-                </p>
-              </form>
-            </div>
-          ) : (
-            /* Register Form */
-            <div className="fullscreen-form-wrapper">
-              <h2 className="fullscreen-form-heading">Create Your Account</h2>
-              <p className="fullscreen-form-subheading">Join thousands of happy residents</p>
-
-              <form onSubmit={handleSubmit} className="fullscreen-auth-form">
-                <div className="fullscreen-form-field">
-                  <label htmlFor="fullName">Full Name</label>
+            <form onSubmit={handleSubmit}>
+              {!isLogin && (
+                <div className="mb-3">
+                  <label className="form-label">Full Name</label>
                   <input
                     type="text"
-                    id="fullName"
+                    className="form-control"
                     name="fullName"
-                    placeholder="John Doe"
                     value={formData.fullName}
-                    onChange={handleInputChange}
+                    onChange={handleChange}
                     required
                   />
                 </div>
+              )}
 
-                <div className="fullscreen-form-field">
-                  <label htmlFor="email">Email</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="john@example.com"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
+              <div className="mb-3">
+                <label className="form-label">Email</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-                <div className="fullscreen-form-field">
-                  <label htmlFor="mobileNumber">Mobile Number</label>
-                  <input
-                    type="tel"
-                    id="mobileNumber"
-                    name="mobileNumber"
-                    placeholder="9876543210"
-                    value={formData.mobileNumber}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-
-                <div className="fullscreen-form-row-split">
-                  <div className="fullscreen-form-field">
-                    <label htmlFor="gender">Gender</label>
-                    <select
-                      id="gender"
-                      name="gender"
-                      value={formData.gender}
-                      onChange={handleInputChange}
-                      required
-                    >
-                      <option value="">Select</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-
-                  <div className="fullscreen-form-field">
-                    <label htmlFor="dateOfBirth">Date of Birth</label>
+              {!isLogin && (
+                <>
+                  <div className="mb-3">
+                    <label className="form-label">Mobile Number</label>
                     <input
-                      type="text"
-                      id="dateOfBirth"
-                      name="dateOfBirth"
-                      placeholder="dd/mm/yyyy"
-                      value={formData.dateOfBirth}
-                      onChange={handleInputChange}
+                      type="tel"
+                      className="form-control"
+                      name="mobileNumber"
+                      value={formData.mobileNumber}
+                      onChange={handleChange}
                       required
                     />
                   </div>
-                </div>
 
-                <div className="fullscreen-form-field">
-                  <label htmlFor="password">Password</label>
+                  <div className="row">
+                    <div className="col-md-6 mb-3">
+                      <label className="form-label">Gender</label>
+                      <select
+                        className="form-select"
+                        name="gender"
+                        value={formData.gender}
+                        onChange={handleChange}
+                        required
+                      >
+                        <option value="">Select</option>
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
+                        <option value="OTHER">Other</option>
+                      </select>
+                    </div>
+
+                    <div className="col-md-6 mb-3">
+                      <label className="form-label">Date of Birth</label>
+                      <input
+                        type="date"
+                        className="form-control"
+                        name="dateOfBirth"
+                        value={formData.dateOfBirth}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+
+              <div className="mb-3">
+                <label className="form-label">Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              {!isLogin && (
+                <div className="mb-3">
+                  <label className="form-label">Confirm Password</label>
                   <input
                     type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Create a password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-
-                <div className="fullscreen-form-field">
-                  <label htmlFor="confirmPassword">Confirm Password</label>
-                  <input
-                    type="password"
-                    id="confirmPassword"
+                    className="form-control"
                     name="confirmPassword"
-                    placeholder="Confirm your password"
                     value={formData.confirmPassword}
-                    onChange={handleInputChange}
+                    onChange={handleChange}
                     required
                   />
                 </div>
+              )}
 
-                <button type="submit" className="fullscreen-form-submit-btn">
-                  Create Account
-                </button>
-              </form>
-            </div>
-          )}
+              <button type="submit" className="btn btn-dark w-100 mt-3">
+                {isLogin ? "Login" : "Create Account"}
+              </button>
+
+
+              {isLogin && (
+                <div className="text-center mt-3">
+                  <Link
+                    to="/forgot-password"
+                    className="text-decoration-none fw-semibold"
+                  >
+                    Forgot Password?
+                  </Link>
+                </div>
+              )}
+
+
+              <p className="text-muted small text-center mt-4">
+                By continuing, you agree to our Terms of Service and Privacy Policy
+              </p>
+            </form>
+          </div>
         </div>
       </div>
-
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };
