@@ -3,5 +3,8 @@ package com.pg.entities;
 public enum KycStatus {
     PENDING,
     VERIFIED,
-    REJECTED
+    REJECTED,
+    NEW,
+    APPROVED
+
 }
