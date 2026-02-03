@@ -112,7 +112,7 @@ public class BookingServiceImpl implements BookingService {
         allocation.setPaymentDone(true);
 
         // ✅ Update booking status
-        booking.setStatus(BookingStatus.ACTIVE);
+        booking.setStatus(BookingStatus.APPROVED);
 
         roomRepository.save(room);
         allocationRepository.save(allocation);
