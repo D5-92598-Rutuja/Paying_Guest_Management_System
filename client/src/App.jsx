@@ -13,10 +13,20 @@ import Profile from './pages/Profile/Profile';
 import Announcements from './pages/Announcements/Announcements';
 import Dashboard from './pages/Dashboard/Dashboard';
 import BookRoom from './pages/BookRoom/BookRoom';
+<<<<<<< HEAD
 import Chatbot from './components/componenets/Chatbot';
+=======
+import RoomDetailsPage from './pages/BookRoom/RoomDetailsPage';
+import PaymentSuccess from './pages/Payments/PaymentSuccess';
+import BillPaymentSuccess from './pages/Payments/BillPaymentSuccess';
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import ProtectedRoute from './components/ProtectedRoute';
+import Feedback from "./pages/Feedback/Feedback";
+
+>>>>>>> 435c058182e35770fbaa5b0c50639bd23c1f1165
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
@@ -27,7 +37,7 @@ function App() {
           {/* Default route */}
           <Route
             path='/'
-            element={<Navigate to='/home/dashboard' />}
+            element={<Navigate to='/dashboard' />}
           />
 
           {/* Login Register Routes */}
@@ -35,19 +45,30 @@ function App() {
             path='/login'
             element={<Login />}
           />
-          <Route
-            path='home'
-            //element={user ? <Home /> : <Navigate to='/login' />}
-            element={<Home />}
-          >
-            {/* Dashboard */}
-            <Route path="dashboard" element={<Dashboard />} />
+          <Route path="rooms" element={<BookRoom />} />
 
+
+          {/* Dashboard */}
+          <Route path="dashboard" element={<Dashboard />} />
+
+          {/* USER Protected Routes */}
+
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          >
             {/* Room Announcements */}
             <Route path="announcements" element={<Announcements />} />
 
             {/*Room Booking  */}
-            <Route path="rooms" element={<BookRoom />} />
+            <Route path="room/:type" element={<RoomDetailsPage />} />      {/* NEW: Booking details */}
+            <Route path="payment-success" element={<PaymentSuccess />} />
+            <Route path="bill-payment-success" element={<BillPaymentSuccess />} />
+
 
             {/* Payments */}
             <Route path="payment" element={<Payments />} />
@@ -58,13 +79,28 @@ function App() {
             {/* Support */}
             <Route path="support" element={<Support />} />
 
+            <Route path="feedback" element={<Feedback />} />
+
 
           </Route>
+
+          
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          
+          {/* 404 */}
+          <Route path="*" element={<div>404 - Page Not Found</div>} />
         </Routes>
+
+
+
         {/* used to show the toasts */}
         <ToastContainer />
 
+<<<<<<< HEAD
       <Chatbot/>
+=======
+>>>>>>> 435c058182e35770fbaa5b0c50639bd23c1f1165
 
       </div>
     </>

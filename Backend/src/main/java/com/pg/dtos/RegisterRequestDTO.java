@@ -5,11 +5,15 @@ import java.time.LocalDate;
 import com.pg.entities.Gender;
 import com.pg.entities.Role;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RegisterRequestDTO {
 
     private String firstName;

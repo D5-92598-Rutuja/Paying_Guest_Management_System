@@ -3,6 +3,7 @@ import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { ToastContainer } from "react-toastify";
 
+
 import Dashboard from './pages/Dashboard/Dashboard'
 import Login from './pages/Login/Login'
 import AddRoom from './pages/RoomManagement/AddRoom'
@@ -15,55 +16,62 @@ import ResolveIssue from './pages/Support/ResolveIssue'
 import VerifyKYC from './pages/UserManagement/VerifyKYC'
 import Announcements from './pages/Announcements/Announcements'
 import Home from './pages/Home/Home';
-//import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
-//import AuthProvider from './providers/AuthProvider'
+import ProtectedRoute from "./components/ProtectedRoute";
+import Feedback from './pages/Feedback/Feedback';
+
 
 
 function App() {
   return (
     <div>
-          <Routes>
-            {/* Default route */}
-            <Route
-              path='/'
-              element={<Navigate to='/login' />}
-            />
+      <Routes>
+        {/* Default route */}
+        <Route
+          path='/'
+          element={<Navigate to='/login' />}
+        />
 
-            {/* Login Register Routes */}
-            <Route
-              path='login'
-              element={<Login />}
-            />
-            <Route
-              path='home'
-              //element={user ? <Home /> : <Navigate to='/login' />}
-              element={<Home/>}
-            >
+        {/* Login Register Routes */}
+        <Route
+          path='login'
+          element={<Login />}
+        />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        >
 
-            {/* Dashboard */}
-            <Route path="dashboard" element={<Dashboard/>} />
-           
-             {/* Room Management */}
-            <Route path="rooms-add" element={<AddRoom />} />
-            <Route path="rooms-update" element={<UpdateRoom />} />
-            
-            {/* Bookings  */}
-            <Route path="room-allocate" element={<AllocateRoom />} />
-            <Route path="bookings-view" element={<ViewBookings />} />
+          {/* Dashboard */}
+          <Route path="dashboard" element={<Dashboard />} />
 
-            {/* Payments */}
-            <Route path="payments-due" element={<DuePayments />} />
-            <Route path="payments-view" element={<ViewPayments />} />
+          {/* Room Management */}
+          <Route path="rooms-add" element={<AddRoom />} />
+          <Route path="rooms-update" element={<UpdateRoom />} />
 
-            {/* Support */}
-            <Route path="support-resolve" element={<ResolveIssue/>} />
+          {/* Bookings  */}
+          <Route path="room-allocate" element={<AllocateRoom />} />
+          <Route path="bookings-view" element={<ViewBookings />} />
 
-            {/* Users */}
-            <Route path="users-verify" element={<VerifyKYC />} />
-            <Route path="announcements" element={<Announcements />} />
-          </Route>
-          </Routes>
-            {/* used to show the toasts */}
+          {/* Payments */}
+          <Route path="payments-due" element={<DuePayments />} />
+          <Route path="payments-view" element={<ViewPayments />} />
+
+          {/* Support */}
+          <Route path="support-resolve" element={<ResolveIssue />} />
+
+          {/* Users */}
+          <Route path="users-verify" element={<VerifyKYC />} />
+          <Route path="announcements" element={<Announcements />} />
+
+          <Route path="feedback" element={<Feedback />} />
+
+        </Route>
+      </Routes>
+      {/* used to show the toasts */}
       <ToastContainer />
     </div>
   )

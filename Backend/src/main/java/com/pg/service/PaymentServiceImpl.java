@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 package com.pg.service; // Add .impl
+=======
+package com.pg.service; 
+>>>>>>> 435c058182e35770fbaa5b0c50639bd23c1f1165
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -93,13 +97,20 @@ public class PaymentServiceImpl implements PaymentService {
 	public Map<String, Object> getDashboardMetrics() {
 		Map<String, Object> metrics = new HashMap<>();
 
+<<<<<<< HEAD
 		// Existing metrics
+=======
+>>>>>>> 435c058182e35770fbaa5b0c50639bd23c1f1165
 		//Names are misleading here , I have consider for this month and this year
 		metrics.put("totalRevenue", paymentRepository.getCurrentMonthRevenue());
 		metrics.put("failedTransactions", paymentRepository.getCurrentMonthCountByStatus(PaymentStatus.FAILED));
 		metrics.put("pendingTransactions", paymentRepository.getCurrentMonthCountByStatus(PaymentStatus.PENDING));
 
+<<<<<<< HEAD
 		// NEW: Last 3 Months Revenue for Graph
+=======
+		// Last 3 Months Revenue for Graph
+>>>>>>> 435c058182e35770fbaa5b0c50639bd23c1f1165
 		List<Map<String, Object>> revenueTrend = new ArrayList<>();
 		LocalDate now = LocalDate.now();
 
@@ -132,7 +143,11 @@ public class PaymentServiceImpl implements PaymentService {
 
 		Page<PaymentRespDTO> dtoPage = paymentPage.map(payment -> {
 			PaymentRespDTO dto = modelMapper.map(payment, PaymentRespDTO.class);
+<<<<<<< HEAD
 			// Fix N+1: Use JOIN FETCH in repo or DTO projection
+=======
+			// Use JOIN FETCH in repo or DTO projection
+>>>>>>> 435c058182e35770fbaa5b0c50639bd23c1f1165
 			// For now, simple concat (add @EntityGraph in repo for production)
             if (payment.getBooking() != null && payment.getBooking().getUser() != null) {
                 dto.setUserName(payment.getBooking().getUser().getFirstName() + " " + 
@@ -192,13 +207,22 @@ public class PaymentServiceImpl implements PaymentService {
 		Payment savedPayment = paymentRepository.save(payment);
 
 		try {
+<<<<<<< HEAD
 			// ✅ Use frontendUrl dynamically
+=======
+			// Use frontendUrl dynamically
+>>>>>>> 435c058182e35770fbaa5b0c50639bd23c1f1165
 			String successUrl = frontendUrl + "/home/payment-success?session_id={CHECKOUT_SESSION_ID}";
 			String cancelUrl = frontendUrl + "/home/rooms";
 
 			SessionCreateParams params = SessionCreateParams.builder().setMode(SessionCreateParams.Mode.PAYMENT)
+<<<<<<< HEAD
 					.setSuccessUrl(successUrl) // 👈 Dynamic
 					.setCancelUrl(cancelUrl) // 👈 Dynamic
+=======
+					.setSuccessUrl(successUrl) 
+					.setCancelUrl(cancelUrl)
+>>>>>>> 435c058182e35770fbaa5b0c50639bd23c1f1165
 					.setCustomerEmail(booking.getUser().getEmail())
 					.addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
 					.addLineItem(SessionCreateParams.LineItem.builder().setQuantity(1L)
@@ -216,8 +240,12 @@ public class PaymentServiceImpl implements PaymentService {
 
 			savedPayment.setTransactionId(session.getId()); // Store cs_test_a1ShEprk...
 			Payment persistedPayment = paymentRepository.save(savedPayment); // Update record
+<<<<<<< HEAD
 			
 //			session.getPaymentIntent();
+=======
+		
+>>>>>>> 435c058182e35770fbaa5b0c50639bd23c1f1165
 
 			Map<String, Object> response = new HashMap<>();
 			response.put("url", session.getUrl());
@@ -238,6 +266,7 @@ public class PaymentServiceImpl implements PaymentService {
 		Payment payment = paymentRepository.findByTransactionId(sessionId)
 				.orElseThrow(() -> new RuntimeException("Payment not found for session: " + sessionId));
 		
+<<<<<<< HEAD
 		// 1. Update payment (already handles webhook race condition)
 //	    if (payment.getPaymentStatus() == PaymentStatus.COMPLETED) {
 //			payment.setRemark("ADVANCE Payment - Webhook Confirmed");
@@ -245,6 +274,10 @@ public class PaymentServiceImpl implements PaymentService {
 //	    }
 
 	    System.out.println("++++++++++++++++recordAdvancePayment() "+getClass());
+=======
+
+	    //System.out.println("++++++++++++++++recordAdvancePayment() "+getClass());
+>>>>>>> 435c058182e35770fbaa5b0c50639bd23c1f1165
 		// 2. Mark as ADVANCE/SUCCESS
 		payment.setPaymentStatus(PaymentStatus.COMPLETED);
 		payment.setRemark("ADVANCE Payment - Frontend Confirmed");
@@ -264,12 +297,24 @@ public class PaymentServiceImpl implements PaymentService {
 	// Monthly recurring payments
 
 	@Transactional
+<<<<<<< HEAD
 	public ApiResponse generateMonthlyBills(Integer month, Integer year) {
 	    int created = 0;
 	    int skipped = 0;
 
 	    List<Booking> activeBookings = bookingRepository.findByStatusAndEndDateAfter(BookingStatus.ACTIVE,
 	            LocalDate.now());
+=======
+	public ApiResponse generateMonthlyBills() {
+	    int created = 0;
+	    int skipped = 0;
+	    
+	    LocalDate today = LocalDate.now();   
+        int month = today.getMonthValue();   
+        int year  = today.getYear();
+
+	    List<Booking> activeBookings = bookingRepository.findByStatusAndEndDateAfterOrNull(BookingStatus.ACTIVE, today);
+>>>>>>> 435c058182e35770fbaa5b0c50639bd23c1f1165
 
 	    for (Booking booking : activeBookings) {
 	        // Skip if bill already exists
@@ -399,13 +444,18 @@ public class PaymentServiceImpl implements PaymentService {
 	    bill.setLastUpdated(LocalDateTime.now());
 	    monthlyBillRepository.save(bill);
 	    
+<<<<<<< HEAD
 	    // 👈 Rich success message
+=======
+	    // Rich success message
+>>>>>>> 435c058182e35770fbaa5b0c50639bd23c1f1165
 	    return new ApiResponse(
 	        String.format("Bill #%d marked PAID via payment #%d", billId, payment.getId()),
 	        "SUCCESS"
 	    );
 	}
 
+<<<<<<< HEAD
 
 	// Helper to extract ID
 //	private Long extractBillId(String remark) {
@@ -424,6 +474,9 @@ public class PaymentServiceImpl implements PaymentService {
 	
 	
 	
+=======
+		
+>>>>>>> 435c058182e35770fbaa5b0c50639bd23c1f1165
 	@Override
 	public Page<MonthlyBillRespDTO> getAllMonthlyBills(Pageable pageable) {
 	    Page<MonthlyBill> bills = monthlyBillRepository.findAll(pageable);
@@ -452,7 +505,10 @@ public class PaymentServiceImpl implements PaymentService {
 	    int currentYear = LocalDate.now().getYear();
 	    
 	    // Total records (ALL TIME)
+<<<<<<< HEAD
 //	    Long totalRecords = monthlyBillRepository.count();
+=======
+>>>>>>> 435c058182e35770fbaa5b0c50639bd23c1f1165
 	    Long totalRecords = monthlyBillRepository.countByMonthYear(currentMonth, currentYear);
 	    
 	    // Current month stats
@@ -475,8 +531,11 @@ public class PaymentServiceImpl implements PaymentService {
 	            .build();
 	}
 
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 435c058182e35770fbaa5b0c50639bd23c1f1165
 }

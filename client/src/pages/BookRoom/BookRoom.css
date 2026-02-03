@@ -1,4 +1,4 @@
-/* MAIN CONTAINER */
+
 .rooms-container {
   width: 100%;
   padding: 40px 80px;
@@ -7,7 +7,7 @@
   font-family: "Inter", sans-serif;
 }
 
-/* TITLE + SUBTITLE */
+
 .rooms-title {
   text-align: center;
   font-size: 32px;
@@ -23,7 +23,7 @@
   margin-bottom: 25px;
 }
 
-/* AMENITIES BADGES */
+
 .room-amenities {
   width: 100%;
   display: flex;
@@ -40,14 +40,14 @@
   box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
 }
 
-/* ROOM CARD WRAPPER */
+
 .room-cards-wrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 35px;
 }
 
-/* ROOM CARD */
+
 .room-card {
   background: white;
   border-radius: 15px;
@@ -60,7 +60,7 @@
   transform: translateY(-5px);
 }
 
-/* ROOM IMAGE SECTION */
+
 .room-image-wrapper {
   position: relative;
 }
@@ -71,7 +71,7 @@
   object-fit: cover;
 }
 
-/* Availability Badge */
+
 .room-availability {
   position: absolute;
   bottom: 10px;
@@ -83,7 +83,7 @@
   box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
 }
 
-/* Most Popular Tag */
+
 .room-tag {
   position: absolute;
   top: 10px;

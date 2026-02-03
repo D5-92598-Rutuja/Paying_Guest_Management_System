@@ -1,93 +1,362 @@
-.page-container  {
-  margin-left: 150px;     /* FIXED */
-  padding: 40px 40px;
-  width: 100%;        /* FIXED */
+* {
+  box-sizing: border-box;
 }
 
+.page-container {
+  /* margin-left: 150px; */
+  padding: 40px;
+  min-height: 100vh;
+  background: #f5f7fa;
+}
 
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  gap: 16px;
+}
 
-/* TITLE & SUBTITLE ALIGNED LEFT */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e0e0e0;
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-state p {
+  color: #7f8c8d;
+  font-size: 15px;
+}
+
+.page-header {
+  margin-bottom: 4px!important;
+}
+
 .page-title {
   font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 4px;
-  text-align: left;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 6px;
 }
 
 .subtitle {
-  color: #777;
-  font-size: 16px;
-  margin-bottom: 25px;
-  text-align: left;
+  color: #7f8c8d;
+  font-size: 14px;
+  margin: 0;
 }
 
-/* RENT CARD FULL-WIDTH JUST LIKE FIGMA */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 32px;
+  align-items: start;
+}
+
+/* Rent Cards Section */
+.rent-cards-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .rent-card {
-  background: #fff;
-  border: 1px solid #e5e5e5;
-  padding: 22px;
-  border-radius: 14px;
-  width: 80%;          
-  min-width: 500px;   
-  margin-bottom: 22px;
-  text-align: left;
+  background: white;
+  border: 1.5px solid #e1e8ed;
+  border-radius: 12px;
+  padding: 12px;
+  transition: all 0.2s ease;
+}
+
+.rent-card:hover {
+  border-color: #cbd5e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.room-icon {
+  font-size: 24px;
+}
+
+.room-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .rent-label {
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #5a6c7d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.currency-symbol {
+  position: absolute;
+  left: 16px;
+  font-size: 16px;
   font-weight: 600;
-  margin-top: 10px;
+  color: #5a6c7d;
+  pointer-events: none;
 }
 
 .rent-input {
   width: 100%;
-  background: #f5f5f5;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  padding: 12px;
+  background: #f8f9fa;
+  border: 1.5px solid #e1e8ed;
+  border-radius: 8px;
+  padding: 12px 16px 12px 36px;
   font-size: 16px;
+  font-weight: 500;
+  color: #2c3e50;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.rent-input:focus {
+  background: white;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.rent-input::-webkit-inner-spin-button,
+.rent-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.save-btn {
+  width: 100%;
+  padding: 14px;
+  background: #000;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
   margin-top: 8px;
 }
 
-/* SAVE BUTTON FULL WIDTH */
-.save-btn {
-  width: 80%;
-  padding: 15px;
-  background: #000;
-  color: #fff;
-  font-size: 17px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  margin: 20px 0;
-  display: block;     /* makes it act like a full-width element */
-  margin-left: 0;
-
+.save-btn:hover {
+  background: #2980b9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
 }
 
-/* SUMMARY SECTION */
+.save-btn:active {
+  transform: translateY(0);
+}
+
+.save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.save-btn.loading {
+  opacity: 0.8;
+}
+
+/* Summary Section */
+.summary-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 40px;
+}
+
 .summary-card {
-  width: 80%;
-  min-width: 500px;
-  background: #fff;
-  border: 1px solid #e5e5e5;
-  border-radius: 14px;
-  padding: 22px;
-  margin-top: 10px;
+  background: white;
+  border: 1.5px solid #e1e8ed;
+  border-radius: 12px;
+  padding: 24px;
 }
 
 .summary-title {
-  font-weight: 700;
-  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0 0 20px 0;
+  display: flex;
+  align-items: center;
+}
+
+.summary-title svg {
+  color: #27ae60;
+}
+
+.summary-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .summary-row {
   display: flex;
   justify-content: space-between;
-  padding: 12px 0;
+  align-items: center;
+  padding: 14px 0;
   border-bottom: 1px solid #f0f0f0;
 }
 
-.summary-row:last-child {
-  border-bottom: none;
+.summary-row:last-of-type {
+  border-bottom: 2px solid #e1e8ed;
+  margin-bottom: 4px;
+}
+
+.summary-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.summary-icon {
+  font-size: 18px;
+}
+
+.summary-label {
+  font-size: 14px;
+  color: #5a6c7d;
+  font-weight: 500;
+}
+
+.summary-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0 4px 0;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.total-value {
+  font-size: 18px;
+  color: #27ae60;
+}
+
+/* Info Card */
+.info-card {
+  background: linear-gradient(135deg, #fdf2bb 0%, #f7e62e 100%);
+  border-radius: 12px;
+  padding: 20px;
+  /* color: white; */
+}
+
+.info-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.info-content h5 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+
+.info-content ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 13px;
+  line-height: 1.8;
+  opacity: 0.95;
+}
+
+.info-content li {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.info-content li:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-section {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    margin-left: 0;
+    padding: 24px 16px;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .rent-card {
+    padding: 20px;
+  }
+
+  .room-title {
+    font-size: 16px;
+  }
+
+  .summary-card,
+  .info-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 22px;
+  }
+
+  .card-header {
+    gap: 8px;
+  }
+
+  .room-icon {
+    font-size: 20px;
+  }
+
+  .rent-input {
+    font-size: 15px;
+  }
 }
