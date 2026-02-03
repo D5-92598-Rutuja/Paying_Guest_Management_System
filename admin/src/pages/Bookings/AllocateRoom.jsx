@@ -1,57 +1,66 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
+import axios from "../../service/axiosInstance";
 import "./AllocateRoom.css";
+import { toast } from 'react-toastify';
+
 
 export default function AllocateRooms() {
   const [bookings, setBookings] = useState([]);
   const [rooms, setRooms] = useState([]);
-  const [selectedRooms, setSelectedRooms] = useState({}); // store selected room per booking
+  const [selectedRooms, setSelectedRooms] = useState({});
 
   useEffect(() => {
     fetchPendingBookings();
     fetchRooms();
   }, []);
 
+  // Fetch only bookings that are not yet allocated
   const fetchPendingBookings = async () => {
-    const res = await axios.get("http://localhost:8080/bookings/pending");
+    const res = await axios.get(
+      "/admin/bookings/ready-for-allocation"
+    );
     setBookings(res.data);
   };
 
   const fetchRooms = async () => {
-    const res = await axios.get("http://localhost:8080/rooms");
+    const res = await axios.get("/api/rooms");
     setRooms(res.data);
   };
 
   const getRoomsByType = (type) =>
     rooms.filter((r) => r.sharingType === type && r.availableBeds > 0);
 
-  //allocate API call
+  // Allocate API call
   const allocateRoom = async (bookingId) => {
     const roomId = selectedRooms[bookingId];
 
     if (!roomId) {
-      alert("Please select a room first!");
+      toast.warning("Please select a room first!");
       return;
     }
 
     try {
-      await axios.post("http://localhost:8080/bookings/allocate", {
+      await axios.post("/admin/bookings/allocate", {
         bookingId: bookingId,
         roomId: roomId,
       });
 
-      alert("Room Allocated Successfully!");
-      fetchPendingBookings();
-      fetchRooms();
+      toast.success("Room Allocated Successfully!");
+
+      // refresh UI properly
+      await fetchPendingBookings();
+      await fetchRooms();
+      setSelectedRooms({});
     } catch (err) {
       console.error(err);
-      alert("Allocation failed");
+      toast.error("Allocation failed");
     }
   };
 
   return (
     <div className="allocate-container">
-      <h2>Allocate Rooms</h2>
+      <h3>Allocate Rooms</h3>
       <p className="subtitle">Assign available rooms to pending bookings</p>
 
       {/* TOP CARDS */}
@@ -71,7 +80,8 @@ export default function AllocateRooms() {
             {
               bookings.filter(
                 (b) =>
-                  b.joinDate === new Date().toISOString().split("T")[0]
+                  new Date(b.joinDate).toISOString().split("T")[0] ===
+                  new Date().toISOString().split("T")[0]
               ).length
             }
           </h1>
@@ -81,7 +91,7 @@ export default function AllocateRooms() {
 
       {/* TABLE */}
       <div className="table-card">
-        <h3>Unallocated Bookings</h3>
+        <h5>Unallocated Bookings</h5>
 
         <div className="table-responsive">
           <table className="table table-bordered table-hover align-middle text-center custom-table">
@@ -92,7 +102,7 @@ export default function AllocateRooms() {
                 <th>Room Type</th>
                 <th>Join Date</th>
                 <th>Assign Room</th>
-                <th>Action</th>
+                {/*<th>Action</th>*/}
               </tr>
             </thead>
 
@@ -106,13 +116,12 @@ export default function AllocateRooms() {
                   </td>
                   <td>
                     {b.joinDate}
-                    {b.joinDate ===
+                    {new Date(b.joinDate).toISOString().split("T")[0] ===
                       new Date().toISOString().split("T")[0] && (
                       <span className="urgent ms-2">Urgent</span>
                     )}
                   </td>
 
-                  {/* FIXED SELECT */}
                   <td>
                     <select
                       className="form-select"
@@ -133,10 +142,10 @@ export default function AllocateRooms() {
                     </select>
                   </td>
 
-                  {/*FIXED BUTTON */}
                   <td>
                     <button
                       className="allocate-btn"
+                      disabled={!selectedRooms[b.bookingId]}
                       onClick={() => allocateRoom(b.bookingId)}
                     >
                       Allocate
@@ -150,11 +159,11 @@ export default function AllocateRooms() {
       </div>
 
       {/* AVAILABLE ROOMS CARDS */}
-      <h3>Available Rooms</h3>
+      <h5>Available Rooms</h5>
       <div className="room-cards">
         {["SINGLE", "DOUBLE", "TRIPLE"].map((type) => (
           <div className="room-card" key={type}>
-            <h4>{type} Sharing</h4>
+            <h6>{type} Sharing</h6>
             {getRoomsByType(type).map((r) => (
               <div className="room-row" key={r.id}>
                 <span>{r.roomNumber}</span>

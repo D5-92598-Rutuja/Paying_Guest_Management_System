@@ -2,22 +2,17 @@ package com.pg.service;
 
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.pg.dtos.AllocationRespDTO;
 import com.pg.dtos.BookingReqDTO;
 import com.pg.dtos.BookingRespDTO;
-import com.pg.entities.Booking;
-import com.pg.entities.BookingStatus;
-import com.pg.entities.KycStatus;
-import com.pg.entities.PaymentStatus;
-import com.pg.entities.Room;
-import com.pg.entities.SharingType;
-import com.pg.entities.User;
-import com.pg.repository.BookingRepository;
-import com.pg.repository.RoomRepository;
-import com.pg.repository.UserRepository;
+import com.pg.entities.*;
+import com.pg.repository.*;
 
-import jakarta.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -27,12 +22,15 @@ public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
     private final UserRepository userRepository;
     private final RoomRepository roomRepository;
+    private final AllocationRepository allocationRepository;
+    
 
-    //CREATE BOOKING
+    // ✅ CREATE BOOKING + CREATE ALLOCATION
     @Override
-    public void createBooking(BookingReqDTO dto, Long userId) {
+    public Long createBooking(BookingReqDTO dto,Authentication authentication) {
 
-        User user = userRepository.findById(userId)
+    	String email = authentication.getPrincipal().toString();
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         Booking booking = new Booking();
@@ -47,10 +45,13 @@ public class BookingServiceImpl implements BookingService {
 
         booking.setUser(user);
 
-        bookingRepository.save(booking);
+        // 1️⃣ Save booking
+        Booking savedBooking = bookingRepository.save(booking);
+
+        return savedBooking.getId();
     }
 
-    // GET ALL BOOKINGS
+    // ✅ GET ALL BOOKINGS
     @Override
     public List<BookingRespDTO> getAllBookings() {
         return bookingRepository.findAll()
@@ -59,7 +60,7 @@ public class BookingServiceImpl implements BookingService {
                 .toList();
     }
 
-    //GET PENDING BOOKINGS
+    // ✅ GET PENDING BOOKINGS (for admin view)
     @Override
     public List<BookingRespDTO> getPendingBookings() {
         return bookingRepository.findByStatus(BookingStatus.PENDING)
@@ -68,7 +69,7 @@ public class BookingServiceImpl implements BookingService {
                 .toList();
     }
 
-    // MAP ENTITY TO DTO
+    // ✅ MAP ENTITY TO DTO
     private BookingRespDTO mapToDTO(Booking booking) {
         BookingRespDTO dto = new BookingRespDTO();
         dto.setBookingId(booking.getId());
@@ -80,8 +81,6 @@ public class BookingServiceImpl implements BookingService {
         return dto;
     }
 
-    
-    // ALLOCATE ROOM TO BOOKING
     @Override
     @Transactional
     public void allocateRoom(Long bookingId, Long roomId) {
@@ -100,15 +99,28 @@ public class BookingServiceImpl implements BookingService {
             throw new RuntimeException("Room type mismatch");
         }
 
-        booking.setRoom(room);
-        booking.setStatus(BookingStatus.APPROVED);
-
+        // ✅ Reduce bed count
         room.setAvailableBeds(room.getAvailableBeds() - 1);
 
-        bookingRepository.save(booking);
+        // ✅ Create allocation NOW (correct place)
+        Allocation allocation = new Allocation();
+        allocation.setBooking(booking);
+        allocation.setUser(booking.getUser());
+        allocation.setRoom(room);
+        allocation.setAllocationStatus(AllocationStatus.COMPLETED);
+        allocation.setVerified(true);
+        allocation.setPaymentDone(true);
+
+        // ✅ Update booking status
+        booking.setStatus(BookingStatus.ACTIVE);
+
         roomRepository.save(room);
+        allocationRepository.save(allocation);
+        bookingRepository.save(booking);
     }
-    
+
+
+    // ✅ GET AVAILABLE ROOMS FOR A BOOKING
     @Override
     public List<Room> getAvailableRoomsForBooking(Long bookingId) {
 
@@ -120,6 +132,43 @@ public class BookingServiceImpl implements BookingService {
         return roomRepository
                 .findBySharingTypeAndAvailableBedsGreaterThan(type, 0);
     }
+    
+    
+    @Override
+    public List<AllocationRespDTO> getReadyForAllocation() {
+
+        return allocationRepository
+                .findByIsVerifiedTrueAndIsPaymentDoneTrueAndAllocationStatus(AllocationStatus.PENDING)
+                .stream()
+                .map(a -> {
+                    AllocationRespDTO dto = new AllocationRespDTO();
+                    dto.setBookingId(a.getBooking().getId());
+                    dto.setUserName(a.getUser().getFirstName());
+                    dto.setRoomType(a.getBooking().getRoomType().name());
+                    dto.setJoinDate(a.getBooking().getJoinDate().toString());
+                    return dto;
+                })
+                .toList();
+    }
+    
+
+    
+    @Override
+    public List<BookingRespDTO> getBookingsReadyForAllocation() {
+    	
+    	//bookingId-->kyc and then status
+
+        return bookingRepository.findAll()
+                .stream()
+//                .filter(b -> b.getStatus() == BookingStatus.PENDING)
+                .filter(b -> b.getStatus() == BookingStatus.COMPLETED)//Auto changed PENDING-COMPLETED when Payment is Done
+//                .filter(b -> b.getKycStatus() == KycStatus.VERIFIED)
+//                .filter(b -> b.getPaymentStatus() == PaymentStatus.PAID)
+                .filter(b -> allocationRepository.findByBooking_Id(b.getId()).isEmpty())
+                .map(this::mapToDTO)
+                .toList();
+    }
+
 
 
 }

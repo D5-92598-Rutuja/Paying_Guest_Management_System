@@ -1,11 +1,9 @@
 package com.pg.entities;
 
 import java.time.LocalDate;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import com.pg.entities.SharingType;
 
 @Entity
 @Table(name = "bookings")
@@ -14,30 +12,30 @@ import com.pg.entities.SharingType;
 @Setter
 public class Booking extends BaseEntity {
 
-	@Enumerated(EnumType.STRING)
-	private SharingType roomType;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "room_type", nullable = false)
+    private SharingType roomType;
 
-    @Column(nullable = false)
+    @Column(name = "join_date", nullable = false)
     private LocalDate joinDate;
 
+    @Column(name = "end_date")
     private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private BookingStatus status;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "kyc_status", nullable = false)
     private KycStatus kycStatus;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "payment_status", nullable = false)
     private PaymentStatus paymentStatus;
 
-    // 🔗 Student
+    // uid (user_id)
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "uid", nullable = false)
     private User user;
-
-    // 🔗 Room (after allocation)
-    @ManyToOne
-    @JoinColumn(name = "room_id")
-    private Room room;
 }

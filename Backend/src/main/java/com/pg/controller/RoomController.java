@@ -18,12 +18,12 @@ public class RoomController {
 
     private final RoomService roomService;
 
-    @PostMapping("/admin/rooms")
+    @PostMapping("/api/admin/rooms")
     public ResponseEntity<RoomRespDTO> addRoom(@RequestBody RoomReqDTO dto) {
         return new ResponseEntity<>(roomService.addRoom(dto), HttpStatus.CREATED);
     }
 
-    @GetMapping("/rooms")
+    @GetMapping("/api/rooms")
     public List<RoomRespDTO> getAllRooms() {
         return roomService.getAllRooms();
     }
