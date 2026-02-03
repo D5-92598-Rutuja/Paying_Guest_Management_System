@@ -29,7 +29,9 @@ public interface PaymentService {
     
     //Recurring payments
 	public ApiResponse generateMonthlyBills();
-	public List<MonthlyBill> getUnpaidBills(Long booking);
+	//public List<MonthlyBill> getUnpaidBills(Long booking);
+    public ApiResponse generateMonthlyBills();
+
     //Monthly Payments-STRIPE
 	Map<String, Object> createBillPaymentSession(Long billId);
 	public ApiResponse recordBillPayment(String sessionId,String billId);

@@ -303,9 +303,14 @@ public class PaymentServiceImpl implements PaymentService {
 	
 	
 	//get monthly 
-	public List<MonthlyBill> getUnpaidBills(Long booking) {
+	public List<MonthlyBill> getUnpaidBills(String email) {
+	//User user= userRepository.findByEmail(email).orElseThrow(()-> new UserNotFoundException("User not found "+getClass()));
+		
+		Allocation allocationDetails=allocationRepository.findTopByUserEmailOrderByCreatedOnDesc(email)
+									.orElseThrow(()-> new UserNotFoundException("User not found "+getClass()));;
+		
 	    return monthlyBillRepository.findByBookingIdAndStatusOrderByDueDateAsc(
-	        booking, BillStatus.UNPAID);
+	    		allocationDetails.getBooking().getId(), BillStatus.UNPAID);
 	}
 	
 	
