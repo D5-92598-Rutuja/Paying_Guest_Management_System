@@ -257,12 +257,15 @@ public class PaymentServiceImpl implements PaymentService {
 	// Monthly recurring payments
 
 	@Transactional
-	public ApiResponse generateMonthlyBills(Integer month, Integer year) {
+	public ApiResponse generateMonthlyBills() {
 	    int created = 0;
 	    int skipped = 0;
+	    
+	    LocalDate today = LocalDate.now();   
+        int month = today.getMonthValue();   
+        int year  = today.getYear();
 
-	    List<Booking> activeBookings = bookingRepository.findByStatusAndEndDateAfter(BookingStatus.ACTIVE,
-	            LocalDate.now());
+	    List<Booking> activeBookings = bookingRepository.findByStatusAndEndDateAfterOrNull(BookingStatus.ACTIVE, today);
 
 	    for (Booking booking : activeBookings) {
 	        // Skip if bill already exists
@@ -271,6 +274,9 @@ public class PaymentServiceImpl implements PaymentService {
 	            continue;
 	        }
 
+	        //Can be conflict here
+//	        Room room = roomRepository.findById(booking.getRoom().getId()).orElseThrow();
+	        
 	        // 2. Get RentPolicy for room_type
 	        RentPolicy policy = rentPolicyRepository.findBySharingType(booking.getRoomType())
 	            .orElseThrow(() -> new RuntimeException("No rent policy for " + booking.getRoomType()));

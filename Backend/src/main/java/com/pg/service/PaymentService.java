@@ -28,7 +28,7 @@ public interface PaymentService {
     public void recordAdvancePayment(String sessionId);
     
     //Recurring payments
-	public ApiResponse generateMonthlyBills(Integer month, Integer year);
+	public ApiResponse generateMonthlyBills();
 	public List<MonthlyBill> getUnpaidBills(Long booking);
     //Monthly Payments-STRIPE
 	Map<String, Object> createBillPaymentSession(Long billId);
