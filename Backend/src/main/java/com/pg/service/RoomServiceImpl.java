@@ -47,7 +47,7 @@ public class RoomServiceImpl implements RoomService {
                 .orElseThrow(() -> new RuntimeException("Rent not set for this sharing type"))
                 .getRentPerBed();
 
-        room.setRentPerBed(rent);   // ⭐ IMPORTANT
+        room.setRentPerBed(rent);   
 
         room.setStatus(Status.ACTIVE);
 
