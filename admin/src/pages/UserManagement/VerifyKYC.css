@@ -12,7 +12,7 @@
    VERIFY KYC MAIN PAGE
 =========================== */
 .verify-container {
-  padding-left: 40px;              /* SAME AS SIDEBAR WIDTH + small gap */
+  padding-left: 40px;              
   padding-top: 40px;
   padding-right: 40px;
   width: 100%;
@@ -119,6 +119,32 @@
 /* ===========================
    DOCUMENT SECTION
 =========================== */
+.docs-container {
+  display: flex;
+  gap: 24px;
+}
+
+.doc-box {
+  width: 320px;
+}
+
+.doc-preview {
+  height: 180px;
+  background: #f4f6fa;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.doc-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
 .docs-heading {
   margin-top: 40px;
   font-size: 22px;
