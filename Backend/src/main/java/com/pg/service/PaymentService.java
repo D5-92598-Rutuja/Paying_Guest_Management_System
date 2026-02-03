@@ -16,25 +16,26 @@ import com.pg.payloads.StripePaymentReqDTO;
 import com.stripe.exception.SignatureVerificationException;
 
 public interface PaymentService {
-
     Map<String, Object> getDashboardMetrics();
     Page<PaymentRespDTO> getPayments(int page, int size, String status, String type, String monthYear, String search);
     
-    //FOR ADMIN- BTN
     void processCashPayment(CashPaymentReqDTO req);  
-	
+    
+    	
     //FOR STRIPE
     Map<String, Object> createStripeSession(StripePaymentReqDTO paymentReq);
+    
     public void recordAdvancePayment(String sessionId);
     
     //Recurring payments
+//	public ApiResponse generateMonthlyBills(Integer month, Integer year);
 	public ApiResponse generateMonthlyBills();
-	//public List<MonthlyBill> getUnpaidBills(Long booking);
-    public ApiResponse generateMonthlyBills();
 
-    //Monthly Payments-STRIPE
+	public List<MonthlyBill> getUnpaidBills(String email);
 	Map<String, Object> createBillPaymentSession(Long billId);
 	public ApiResponse recordBillPayment(String sessionId,String billId);
+
+	
 
 	//Monthly Payments
 	public Page<MonthlyBillRespDTO> getAllMonthlyBills(Pageable pageable);
