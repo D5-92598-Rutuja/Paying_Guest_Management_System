@@ -42,6 +42,32 @@ public class UserServiceImpl implements UserService {
 //
 //        return modelMapper.map(userRepository.save(user), UserRespDTO.class);
 //    }
+    private final UserRepository userRepository;
+    private final PasswordEncoder encoder;
+    private final ModelMapper modelMapper;
+
+    //REGISTER USER
+    @Override
+    public UserRespDTO registerUser(RegisterRequestDTO dto) {
+
+        if (userRepository.findByEmail(dto.getEmail()).isPresent()) { 
+        	throw new EmailAlreadyExistsException("Email already registered");
+        }
+
+        User user = modelMapper.map(dto, User.class);
+
+        user.setPassword(encoder.encode(dto.getPassword()));
+        user.setRole(Role.ROLE_USER);     
+        user.setStatus(Status.ACTIVE);
+
+        return modelMapper.map(userRepository.save(user), UserRespDTO.class);
+    }
+
+    @Override
+    public UserRespDTO createUser(User user) {
+        User savedUser = userRepository.save(user);
+        return modelMapper.map(savedUser, UserRespDTO.class);
+    }
 
 
     // 🔹 CREATE USER (ADMIN)
@@ -68,6 +94,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return modelMapper.map(user, UserRespDTO.class);
     }
+
     public UserProfileResponse getMyProfile(String email) {
 
         User user = userRepository.findByEmail(email)
@@ -90,12 +117,11 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Map simple fields
-        modelMapper.map(request, user);
-
-        user.setGender(Gender.valueOf(request.getGender()));
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setEmail(request.getEmail());
+        user.setMobileNo(request.getMobile());
         user.setDob(LocalDate.parse(request.getDateOfBirth()));
-
         userRepository.save(user);
     }
 }
