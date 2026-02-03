@@ -1,47 +1,80 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Announcements.css';
+import { getAnnouncements, addAnnouncement } from "../../services/announcemetService";
 
 const Announcement = () => {
+  const [announcements, setAnnouncements] = useState([]);
+
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [status, setStatus] = useState('Active');
+  const [status, setStatus] = useState('ACTIVE');
 
-  const announcements = [
-    {
-      id: 'ANN001',
-      title: 'Monthly Rent Due Reminder',
-      message:
-        'Please pay your monthly rent by 5th of October. Late payment charges apply after 10th.',
-      start: '10/1/2024',
-      end: '10/10/2024',
-      status: 'Active',
-    },
-    {
-      id: 'ANN002',
-      title: 'Wi-Fi Maintenance Schedule',
-      message:
-        'Internet services will be down for maintenance on Sunday from 2 AM to 6 AM.',
-      start: '10/6/2024',
-      end: '10/6/2024',
-      status: 'Active',
-    },
-    {
-      id: 'ANN003',
-      title: 'New Food Menu Available',
-      message:
-        'We have updated our mess menu with new dishes. Check it out at the mess hall.',
-      start: '9/20/2024',
-      end: '9/30/2024',
-      status: 'Inactive',
-    },
-  ];
+  // const announcements = [
+  //   {
+  //     id: 'ANN001',
+  //     title: 'Monthly Rent Due Reminder',
+  //     message:
+  //       'Please pay your monthly rent by 5th of October. Late payment charges apply after 10th.',
+  //     start: '10/1/2024',
+  //     end: '10/10/2024',
+  //     status: 'Active',
+  //   },
+  //   {
+  //     id: 'ANN002',
+  //     title: 'Wi-Fi Maintenance Schedule',
+  //     message:
+  //       'Internet services will be down for maintenance on Sunday from 2 AM to 6 AM.',
+  //     start: '10/6/2024',
+  //     end: '10/6/2024',
+  //     status: 'Active',
+  //   },
+  //   {
+  //     id: 'ANN003',
+  //     title: 'New Food Menu Available',
+  //     message:
+  //       'We have updated our mess menu with new dishes. Check it out at the mess hall.',
+  //     start: '9/20/2024',
+  //     end: '9/30/2024',
+  //     status: 'Inactive',
+  //   },
+  // ];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log({ title, message, startDate, endDate, status });
+  useEffect(() => {
+    loadAnnouncements();
+  }, []);
+
+  const loadAnnouncements = () => {
+    getAnnouncements()
+      .then((res) => setAnnouncements(res.data))
+      .catch((err) => console.log(err));
   };
+
+  // After form submit
+  const handleSubmit = (e) => {
+  e.preventDefault();
+
+  console.log({ title, message, startDate, endDate, status });
+
+  const data = {
+    title,
+    message,
+    status,
+    postedFor: "ALL",
+    type: "NOTICE",
+    startDate,
+    endDate
+  };
+
+  addAnnouncement(data)
+    .then(() => {
+      alert("Saved Successfully");
+      loadAnnouncements();
+    })
+    .catch(err => console.log(err));
+};
+
 
   return (
     <div className="announcement-container">
@@ -53,6 +86,7 @@ const Announcement = () => {
         <div className="stat-box">0 This Week</div>
       </div>
 
+      {/* Add Announcement */}
       <form className="create-form" onSubmit={handleSubmit}>
         <h3>Create New Announcement</h3>
 
@@ -93,8 +127,8 @@ const Announcement = () => {
 
         <label>Status *</label>
         <select value={status} onChange={(e) => setStatus(e.target.value)}>
-          <option value="Active">Active</option>
-          <option value="Inactive">Inactive</option>
+          <option value="ACTIVE">Active</option>
+          <option value="IACTIVE">Inactive</option>
         </select>
 
         <button type="submit" className="post-btn">Post Announcement</button>
@@ -119,8 +153,8 @@ const Announcement = () => {
               <td>{a.id}</td>
               <td>{a.title}</td>
               <td>{a.message}</td>
-              <td>{a.start}</td>
-              <td>{a.end}</td>
+              <td>{a.startDate}</td>
+              <td>{a.endDate}</td>
               <td>
                 <span className={`status-tag ${a.status.toLowerCase()}`}>
                   {a.status}

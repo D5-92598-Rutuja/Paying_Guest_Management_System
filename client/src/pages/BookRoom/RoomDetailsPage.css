@@ -1,0 +1,47 @@
+/* src/pages/BookRoom/RoomDetailsPage.css */
+
+.room-details-container {
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* The magic for the fixed right section */
+.payment-sticky-wrapper {
+    position:sticky;
+    top: 20px; /* Distance from top of viewport */
+    /* z-index: 100; */
+}
+
+/* Ensure the row acts as a relative container for sticky to work */
+.relative-container {
+    position: relative;
+    align-items: flex-start; /* Important for sticky to not stretch */
+}
+
+/* Card Styling enhancements */
+.card {
+    border-radius: 12px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.icon-box {
+    min-width: 40px;
+}
+
+/* Button Hover Effect */
+.btn-success:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+    /* On mobile/tablet, disable sticky behavior so it stacks naturally */
+    .payment-sticky-wrapper {
+        position: static;
+        margin-top: 20px;
+    }
+    
+    .left-scroll-section {
+        margin-bottom: 20px;
+    }
+}
