@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.pg.dtos.*;
@@ -15,6 +16,7 @@ import com.pg.service.TicketService;
 
 @CrossOrigin(origins = "*")
 @RestController
+@PreAuthorize("hasRole('USER')")
 //@RequestMapping("/api/tickets")
 @RequestMapping("/client/tickets")
 public class ClientTicketController {

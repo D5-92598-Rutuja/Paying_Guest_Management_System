@@ -6,7 +6,7 @@ import com.pg.dtos.ApiResponse;
 import com.pg.entities.Announcements.Announcement;
 
 public interface AnnouncementService {
-
+	//Admin
 	List<Announcement> getAllAnnouncements();
 
 	ApiResponse addAnnouncement(Announcement a);
@@ -14,4 +14,7 @@ public interface AnnouncementService {
 	Announcement updateAnnouncement(Long id, Announcement announcement);
 
 	void softDelete(Long id);
+	//Client
+	List<Announcement> getActiveAnnouncements();
 }
+////

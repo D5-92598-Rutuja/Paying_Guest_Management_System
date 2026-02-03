@@ -12,4 +12,8 @@ import com.pg.entities.Tickets.TicketStatus;
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 	
 	List<Ticket> findByTicketStatus(TicketStatus status);
+	
+	//Admin-Dashboard
+	long countByTicketStatus(TicketStatus status);
+	List<Ticket> findTop5ByOrderByLastUpdatedDesc();
 }

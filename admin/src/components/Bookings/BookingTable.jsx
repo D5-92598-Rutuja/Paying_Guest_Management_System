@@ -18,9 +18,9 @@ const BookingTable = ({ bookings }) => {
                 <th>Room Type</th>
                 <th>User</th>
                 <th>Join Date</th>
-                <th>End Date</th>
+                {/* <th>End Date</th> */}
                 <th>Status</th>
-                <th className="text-center">Actions</th>
+                {/* <th className="text-center">Actions</th> */}
               </tr>
             </thead>
 
@@ -31,13 +31,13 @@ const BookingTable = ({ bookings }) => {
                   <td>{b.room}</td>
                   <td>{b.user}</td>
                   <td>{b.join}</td>
-                  <td>{b.end}</td>
+                  {/* <td>{b.end}</td> */}
                   <td><StatusBadge status={b.status} /></td>
-                  <td className="text-center">
+                  {/* <td className="text-center">
                     <button className="btn btn-outline-secondary btn-sm rounded-pill px-4">
                       View Details
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

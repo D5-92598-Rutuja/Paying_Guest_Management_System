@@ -14,17 +14,19 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class RoomController {
+public class ClientRoomController {
 
     private final RoomService roomService;
 
-    @PostMapping("/api/admin/rooms")
-    public ResponseEntity<RoomRespDTO> addRoom(@RequestBody RoomReqDTO dto) {
-        return new ResponseEntity<>(roomService.addRoom(dto), HttpStatus.CREATED);
-    }
+//    @PostMapping("/client/rooms")
+//    public ResponseEntity<RoomRespDTO> addRoom(@RequestBody RoomReqDTO dto) {
+//        return new ResponseEntity<>(roomService.addRoom(dto), HttpStatus.CREATED);
+//    }
 
-    @GetMapping("/api/rooms")
+    @GetMapping("/client/rooms")
     public List<RoomRespDTO> getAllRooms() {
         return roomService.getAllRooms();
     }
+    
+    
 }

@@ -55,5 +55,8 @@ public interface PaymentRepository extends JpaRepository<Payment, Long>, JpaSpec
     Optional<Payment> findFirstByTransactionIdAndPaymentStatus(
         @Param("transactionId") String transactionId, 
         @Param("status") PaymentStatus status);
+    
+    //Admin-Dashboard
+    List<Payment> findTop5ByOrderByLastUpdatedDesc();
        
 }

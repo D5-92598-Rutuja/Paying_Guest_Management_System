@@ -9,18 +9,18 @@ import com.pg.service.RentService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/rent")
+//@RequestMapping("/api/rent")
 @RequiredArgsConstructor
-public class RentController {
+public class AdminRentController {
 
     private final RentService rentService;
 
-    @GetMapping
+    @GetMapping("/admin/rent")
     public ResponseEntity<RentUpdateDTO> getCurrentRent() {
         return ResponseEntity.ok(rentService.getCurrentRent());
     }
 
-    @PostMapping
+    @PostMapping("/admin/rent")
     public ResponseEntity<String> updateRent(@RequestBody RentUpdateDTO dto) {
         rentService.updateRent(dto);
         return ResponseEntity.ok("Rent updated successfully");

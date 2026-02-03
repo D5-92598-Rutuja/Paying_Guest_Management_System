@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,8 +26,10 @@ import com.pg.service.TicketService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/tickets")
-//@RequestMapping("/admin/tickets")
+@PreAuthorize("hasRole('ADMIN')")
+
+//@RequestMapping("/api/tickets")
+@RequestMapping("/admin/tickets")
 public class AdminTicketController {
 	@Autowired
     private TicketService ticketService;

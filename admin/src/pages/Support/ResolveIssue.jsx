@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../service/axiosInstance";
 import './ResolveIssue.css';
 
-const API_URL = "http://localhost:8080/api/tickets";
+const API_URL = "/admin/tickets";
 
 export default function ResolveIssues() {
   const [tickets, setTickets] = useState([]);

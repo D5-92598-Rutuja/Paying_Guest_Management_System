@@ -16,7 +16,7 @@ function RoomsUpdate() {
   useEffect(() => {
     setIsFetching(true);
     axios
-      .get("/api/rent")
+      .get("/admin/rent")
       .then((res) => {
         setSingle(res.data.singleRent);
         setDouble(res.data.doubleRent);
@@ -30,7 +30,7 @@ function RoomsUpdate() {
   const handleSave = async () => {
     setIsLoading(true);
     try {
-      await axios.post("api/rent", {
+      await axios.post("/admin/rent", {
         singleRent: Number(single),
         doubleRent: Number(double),
         tripleRent: Number(triple),

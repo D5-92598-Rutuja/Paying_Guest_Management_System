@@ -6,6 +6,8 @@ import {
   updateAnnouncement,
   deleteAnnouncement,
 } from "../../services/announcemetService";
+import { toast } from 'react-toastify';
+
 
 const Announcement = () => {
   const [announcements, setAnnouncements] = useState([]);
@@ -16,7 +18,7 @@ const Announcement = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [status, setStatus] = useState("ACTIVE");
-  const [type, setType] = useState("NOTICE"); // ✅ NEW
+  const [type, setType] = useState("NOTICE"); // NEW
 
   useEffect(() => {
     loadAnnouncements();
@@ -37,7 +39,7 @@ const Announcement = () => {
       message,
       status,
       postedFor: "ALL",
-      type, // ✅ dynamic type
+      type, 
       startDate,
       endDate,
     };
@@ -45,7 +47,7 @@ const Announcement = () => {
     if (editingId) {
       updateAnnouncement(editingId, data)
         .then(() => {
-          alert("Announcement Updated Successfully");
+          toast.success("Announcement Updated Successfully");
           resetForm();
           loadAnnouncements();
         })
@@ -53,7 +55,7 @@ const Announcement = () => {
     } else {
       addAnnouncement(data)
         .then(() => {
-          alert("Announcement Added Successfully");
+          toast.success("Announcement Added Successfully");
           resetForm();
           loadAnnouncements();
         })
@@ -69,7 +71,7 @@ const Announcement = () => {
     setStartDate(a.startDate);
     setEndDate(a.endDate);
     setStatus(a.status);
-    setType(a.type); // ✅ important
+    setType(a.type); 
   };
 
   // DELETE
@@ -79,7 +81,7 @@ const Announcement = () => {
 
     deleteAnnouncement(id)
       .then(() => {
-        alert("Announcement Deleted Successfully");
+        toast.success("Announcement Deleted Successfully");
         loadAnnouncements();
       })
       .catch((err) => console.log(err));
@@ -92,7 +94,7 @@ const Announcement = () => {
     setStartDate("");
     setEndDate("");
     setStatus("ACTIVE");
-    setType("NOTICE"); // ✅ reset
+    setType("NOTICE"); 
   };
 
   return (
@@ -140,7 +142,7 @@ const Announcement = () => {
           </div>
         </div>
 
-        {/* ✅ TYPE INPUT */}
+        {/* TYPE INPUT */}
         <label>Announcement Type *</label>
         <select value={type} onChange={(e) => setType(e.target.value)}>
           <option value="MAINTENANCE">Maintenance</option>
@@ -177,7 +179,7 @@ const Announcement = () => {
           <tr>
             <th>ID</th>
             <th>Title</th>
-            <th>Message</th>
+            {/* <th>Message</th> */}
             <th>Type</th>
             <th>Start Date</th>
             <th>End Date</th>
@@ -197,7 +199,7 @@ const Announcement = () => {
               <tr key={a.id}>
                 <td>{a.id}</td>
                 <td>{a.title}</td>
-                <td>{a.message}</td>
+                {/* <td>{a.message}</td> */}
                 <td>{a.type}</td>
                 <td>{a.startDate}</td>
                 <td>{a.endDate}</td>
@@ -208,16 +210,16 @@ const Announcement = () => {
                 </td>
                 <td>
                   <button
-                    className="icon-btn edit"
+                    className="btn btn-sm btn-warning me-2"
                     onClick={() => handleEdit(a)}
                   >
-                    ✏️
+                  Edit
                   </button>
                   <button
-                    className="icon-btn delete"
+                    class="btn btn-sm btn-danger"
                     onClick={() => handleDelete(a.id)}
                   >
-                    🗑️
+                   Delete
                   </button>
                 </td>
               </tr>
