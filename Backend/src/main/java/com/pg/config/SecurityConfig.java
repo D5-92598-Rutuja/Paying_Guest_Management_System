@@ -83,13 +83,15 @@ public class SecurityConfig {
     ) throws Exception {
         return config.getAuthenticationManager();
     }
-    // ✅ GLOBAL CORS CONFIG (THIS FIXES YOUR ERROR)
+    //  GLOBAL CORS CONFIG (THIS FIXES YOUR ERROR)
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of("http://localhost:5173","http://localhost:5174"));
+        config.setAllowedOrigins(List.of("http://localhost:5173","http://localhost:5174",
+                "https://client-ektn.onrender.com",    // Client app
+                "https://admin-t3m6.onrender.com"   ));   // Admin app
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
