@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pg.dtos.ForgotPasswordRequest;
 import com.pg.service.PasswordResetService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,11 +21,11 @@ public class PasswordResetController {
 
     @PostMapping("/forgot")
     public ResponseEntity<?> forgotPassword(
-            @RequestBody String email
+            @RequestBody ForgotPasswordRequest request
     ) {
-        System.out.println(" FORGOT PASSWORD HIT: " + email);
+        System.out.println(" FORGOT PASSWORD HIT: " + request.getEmail());
 
-        passwordResetService.sendResetLink(email);
+        passwordResetService.sendResetLink(request.getEmail());
         return ResponseEntity.ok("Reset link sent to email");
     }
 
