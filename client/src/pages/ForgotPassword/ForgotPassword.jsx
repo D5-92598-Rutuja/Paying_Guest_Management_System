@@ -13,9 +13,11 @@ export default function ForgotPassword() {
 
     setLoading(true);
     try {
-      await axios.post("/auth/password/forgot", null, {
-        params: { email }
-      });
+      // await axios.post("/auth/password/forgot", null, {
+      //   params: { email }});
+      await axios.post("/auth/password/forgot", { email });
+
+      
       alert("Reset link sent to your email");
     } catch {
       alert("Email not found");

@@ -2,6 +2,7 @@ package com.pg.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,9 +20,9 @@ public class PasswordResetController {
 
     @PostMapping("/forgot")
     public ResponseEntity<?> forgotPassword(
-            @RequestParam String email
+            @RequestBody String email
     ) {
-        System.out.println("🔥 FORGOT PASSWORD HIT: " + email);
+        System.out.println(" FORGOT PASSWORD HIT: " + email);
 
         passwordResetService.sendResetLink(email);
         return ResponseEntity.ok("Reset link sent to email");
