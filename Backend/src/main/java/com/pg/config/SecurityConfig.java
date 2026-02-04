@@ -46,7 +46,7 @@ public class SecurityConfig {
             		// PUBLIC ENDPOINTS
                     .requestMatchers("/auth/**").permitAll()
                     .requestMatchers("/auth/password/**").permitAll()
-//                    .requestMatchers("/api/**").permitAll()
+                    .requestMatchers("/api/**").permitAll()
 
 
                     // Allow static files

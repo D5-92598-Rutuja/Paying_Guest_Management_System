@@ -90,13 +90,13 @@ const Login = () => {
       <nav className="navbar navbar-light bg-white shadow-sm px-4">
         <span className="navbar-brand fw-bold">PGConnect</span>
         <div>
-          <button
+          {/* <button
             className="btn btn-outline-secondary me-2"
             onClick={() => navigate("/")}
           >
             🏠 Home
-          </button>
-          <button className="btn btn-dark">Login / Register</button>
+          </button> */}
+          <button className="btn btn-dark">Login</button>
         </div>
       </nav>
 
@@ -108,7 +108,7 @@ const Login = () => {
         </p>
 
         {/* Tabs */}
-        <div className="btn-group mb-4">
+        {/* <div className="btn-group mb-4">
           <button
             className={`btn ${isLogin ? "btn-dark" : "btn-outline-dark"}`}
             onClick={() => setIsLogin(true)}
@@ -121,7 +121,7 @@ const Login = () => {
           >
             Register
           </button>
-        </div>
+        </div> */}
 
         {/* Card */}
         <div className="card shadow-sm w-100" style={{ maxWidth: "500px" }}>
@@ -238,7 +238,7 @@ const Login = () => {
                 {isLogin ? "Login" : "Create Account"}
               </button>
 
-              {isLogin && (
+              {/* {isLogin && (
                 <div className="text-center mt-3">
                   <Link
                     to="/forgot-password"
@@ -247,10 +247,13 @@ const Login = () => {
                     Forgot Password?
                   </Link>
                 </div>
-              )}
+              )} */}
 
               <p className="text-muted small text-center mt-4">
                 By continuing, you agree to our Terms of Service and Privacy Policy
+              </p>
+              <p className="text-muted small text-center mt-4">
+                email:admin@gmail.com password:123
               </p>
             </form>
           </div>

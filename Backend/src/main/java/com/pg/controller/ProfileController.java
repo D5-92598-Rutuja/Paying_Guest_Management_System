@@ -13,7 +13,7 @@ import com.pg.service.ProfileService;
 @RestController
 @RequestMapping("/client/profile")
 @PreAuthorize("hasRole('USER')")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class ProfileController {
 
     @Autowired

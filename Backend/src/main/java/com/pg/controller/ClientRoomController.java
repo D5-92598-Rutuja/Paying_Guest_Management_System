@@ -23,7 +23,7 @@ public class ClientRoomController {
 //        return new ResponseEntity<>(roomService.addRoom(dto), HttpStatus.CREATED);
 //    }
 
-    @GetMapping("/client/rooms")
+    @GetMapping("/api/rooms")
     public List<RoomRespDTO> getAllRooms() {
         return roomService.getAllRooms();
     }

@@ -24,7 +24,7 @@ import java.util.Map;
 @RequestMapping("/client/recurring")
 @PreAuthorize("hasRole('USER')")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:5173","http://localhost:5174"}) 
+//@CrossOrigin(origins = {"http://localhost:5173","http://localhost:5174"}) 
 @Validated
 @Slf4j
 public class ClientRecurringPaymentController {
