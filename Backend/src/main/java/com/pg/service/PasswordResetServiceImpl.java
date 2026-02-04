@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,8 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     private final PasswordResetTokenRepository tokenRepository;
     private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
+	@Value("${app.frontend.url}")
+	private String frontendUrl;
 
     @Override
     public void sendResetLink(String email) {
@@ -47,7 +50,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         tokenRepository.save(resetToken);
 
         String resetLink =
-                "http://localhost:5173/reset-password?token=" + token;
+        		frontendUrl+"/reset-password?token=" + token;
 
         emailService.sendResetPasswordEmail(user.getEmail(), resetLink);
     }

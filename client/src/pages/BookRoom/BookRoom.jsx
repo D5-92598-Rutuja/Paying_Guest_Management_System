@@ -27,13 +27,13 @@ export default function BookRoom() {
   }, []);
 
   const fetchRooms = async () => {
-    const res = await axios.get("/client/rooms");
+    const res = await axios.get("/api/rooms");
     setRoomsFromDB(res.data);
   };
 
   //fetch rent from rent_policy table
   const fetchRent = async () => {
-    const res = await axios.get("/client/rent");
+    const res = await axios.get("/api/rent");
     setRentPolicy({
       single: res.data.singleRent,
       double: res.data.doubleRent,

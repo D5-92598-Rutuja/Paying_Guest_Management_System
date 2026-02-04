@@ -15,7 +15,7 @@ public class ClientRentController {
 
     private final RentService rentService;
 
-    @GetMapping("/client/rent")
+    @GetMapping("/api/rent")
     public ResponseEntity<RentUpdateDTO> getCurrentRent() {
         return ResponseEntity.ok(rentService.getCurrentRent());
     }

@@ -24,7 +24,7 @@ import java.util.Map;
 @RequestMapping("/admin/recurring")
 @PreAuthorize("hasRole('ADMIN')")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000","http://localhost:5174"}) 
+//@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000","http://localhost:5174"}) 
 @Validated
 @Slf4j
 public class AdminRecurringPaymentController {

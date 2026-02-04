@@ -24,7 +24,7 @@ function AddRoom() {
         floorNumber: parseInt(floorNumber),
         roomNumber: roomNumber,
       };
-      await axios.post("/api/admin/rooms", roomData);
+      await axios.post("/admin/rooms", roomData);
       toast.success("Room Added Successfully");
       
       // Clear form

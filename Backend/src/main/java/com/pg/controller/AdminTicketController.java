@@ -24,7 +24,7 @@ import com.pg.entities.Tickets.Ticket;
 import com.pg.entities.Tickets.TicketStatus;
 import com.pg.service.TicketService;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @PreAuthorize("hasRole('ADMIN')")
 

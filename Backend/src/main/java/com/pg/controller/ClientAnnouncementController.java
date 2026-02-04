@@ -20,7 +20,7 @@ import com.pg.dtos.ApiResponse;
 import com.pg.entities.Announcements.Announcement;
 import com.pg.service.AnnouncementService;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @PreAuthorize("hasRole('USER')")
 @RequestMapping("/client/announcements")

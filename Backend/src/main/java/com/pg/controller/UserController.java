@@ -15,7 +15,7 @@ import com.pg.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
